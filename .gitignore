@@ -5,6 +5,7 @@ project_repos/
 
 # Jekyll build output & cache
 _site/
+_site_*/          # throwaway preview copies (e.g. forced-dark screenshots)
 .jekyll-cache/
 .jekyll-metadata
 

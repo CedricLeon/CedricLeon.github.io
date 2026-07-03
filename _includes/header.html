@@ -1,5 +1,8 @@
-<!-- Site header: name (links home) + primary nav. `aria-current="page"` marks
-     the active link; project detail pages count as the Projects section. -->
+<!-- Site header: name (links home) + primary nav + dark-mode toggle.
+     `aria-current="page"` marks the active link; project detail pages count as
+     the Projects section. The toggle holds both a moon and a sun glyph; CSS
+     shows whichever matches the action (moon in light mode → click for dark,
+     sun in dark mode → click for light). site.js flips data-theme on click. -->
 <header class="site-header">
   <div class="site-header__inner">
     <a class="site-title" href="/">Cédric Léonard</a>
@@ -9,6 +12,10 @@
       <a href="/projects.html"{% if page.url == "/projects.html" or page.collection == "projects" %} aria-current="page"{% endif %}>Projects</a>
       <a href="/publications.html"{% if page.url == "/publications.html" %} aria-current="page"{% endif %}>Publications</a>
       <a href="/cv.pdf">CV</a>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark / light">
+        <svg class="icon icon--moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.37 5.51A7.35 7.35 0 0 0 9.1 7.5c0 4.08 3.32 7.4 7.4 7.4.68 0 1.35-.09 1.99-.27A7.014 7.014 0 0 1 12 19c-3.86 0-7-3.14-7-7 0-2.93 1.81-5.45 4.37-6.49z"/></svg>
+        <svg class="icon icon--sun" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM2 13h2a1 1 0 0 0 0-2H2a1 1 0 0 0 0 2zm18 0h2a1 1 0 0 0 0-2h-2a1 1 0 0 0 0 2zM11 2v2a1 1 0 0 0 2 0V2a1 1 0 0 0-2 0zm0 18v2a1 1 0 0 0 2 0v-2a1 1 0 0 0-2 0zM5.64 4.22 4.22 5.64a1 1 0 0 0 1.42 1.42l1.42-1.42a1 1 0 0 0-1.42-1.42zm12.72 12.72-1.42 1.42a1 1 0 0 0 1.42 1.42l1.42-1.42a1 1 0 0 0-1.42-1.42zm1.42-11.3-1.42-1.42a1 1 0 0 0-1.42 1.42l1.42 1.42a1 1 0 0 0 1.42-1.42zM7.06 16.94 5.64 18.36a1 1 0 0 0 1.42 1.42l1.42-1.42a1 1 0 0 0-1.42-1.42z"/></svg>
+      </button>
     </nav>
   </div>
 </header>

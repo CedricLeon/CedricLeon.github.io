@@ -15,23 +15,65 @@
    re-themed by editing this one block.
    --------------------------------------------------------------------- */
 :root {
-  /* Palette — deep slate-blue accent on a clean white base. */
-  --paper:        #ffffff;  /* page background                       */
-  --bg-subtle:    #f5f7f9;  /* cards / secondary surfaces            */
-  --ink:          #1a1f2b;  /* primary text                          */
-  --muted:        #5b6472;  /* secondary text (dates, captions)      */
-  --border:       #e4e8ec;  /* hairlines                             */
-  --accent:       #2a4d77;  /* links, headings accent (slate blue)   */
-  --accent-strong:#1c3656;  /* hover/active accent                   */
+  color-scheme: light;
+  /* Palette — LIGHT theme. The page sits on a soft grey; every card uses a
+     slightly deeper grey; the header bar and figures stay white. Depth comes
+     from these layered greys, not colour. The dark theme (next block) just
+     re-points the same tokens, so no component needs a dark-specific rule. */
+  --paper:        #f2f3f5;  /* page background (soft grey)               */
+  --surface:      #ffffff;  /* raised UI: the header bar (themed)         */
+  --plate:        #ffffff;  /* figure/thumbnail plate (white in BOTH themes:
+                               the plots themselves have white backgrounds) */
+  --bg-subtle:    #e9ebef;  /* every card + secondary fills               */
+  --ink:          #1a1f2b;  /* primary text                              */
+  --muted:        #5b6472;  /* secondary text (dates, captions)          */
+  --border:       #d9dde3;  /* hairlines                                 */
+  --accent:       #2563eb;  /* links + buttons (a clear, readable blue)  */
+  --accent-strong:#1d4ed8;  /* hover/active accent                       */
+  --on-accent:    #ffffff;  /* text on an accent-filled button           */
+  --tag-bg:       #1a1f2b;  /* tag pill background                       */
+  --tag-fg:       #eef1f5;  /* tag pill text                             */
+  --shadow:       rgba(26, 31, 43, .06);  /* card lift                   */
 
-  /* Typography — a system font stack: uses whatever sans-serif the
-     visitor's OS already has, so there is no web font to download. */
+  /* Typography — two system stacks, so nothing is downloaded.
+       --font-sans : body prose. A system sans, kept for long-form reading.
+       --font-mono : the "serial-programmer" character — a system MONOSPACE
+                     stack (Cascadia Code / Consolas on Windows, SF Mono /
+                     Menlo on macOS, DejaVu elsewhere). Used for headings, the
+                     name, nav, dates, tags and buttons — the coder look — while
+                     paragraphs stay sans for legibility.
+     Want the *full* mono theme? Set `body { font-family: var(--font-mono) }`. */
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
                Helvetica, Arial, sans-serif;
+  --font-mono: "Cascadia Code", "Cascadia Mono", ui-monospace, "SF Mono",
+               "Segoe UI Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
 
   /* Layout */
   --measure: 720px;   /* max text width for comfortable reading      */
   --gap:     1.25rem; /* base spacing unit (rem = relative to root)  */
+  --radius:  12px;    /* card / panel corner rounding                */
+}
+
+/* DARK theme — same tokens, re-pointed to a dark palette. Turned on by
+   data-theme="dark" on <html>, which the inline script in head.html sets before
+   first paint (from the saved choice, else the OS's prefers-color-scheme); the
+   header toggle flips it. NOTE: --plate stays white here on purpose — it only
+   sits behind figures/thumbnails, whose plots have white backgrounds. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper:        #0f141c;
+  --surface:      #161d28;  /* dark raised header bar                    */
+  --plate:        #ffffff;  /* figures stay on white                     */
+  --bg-subtle:    #1b2431;
+  --ink:          #e7ebf1;
+  --muted:        #97a1b0;
+  --border:       #2a3542;
+  --accent:       #6ea8ff;  /* lighter blue: readable on the dark page  */
+  --accent-strong:#93c0ff;
+  --on-accent:    #0f141c;  /* dark text on the light-blue button       */
+  --tag-bg:       #2a3542;
+  --tag-fg:       #dbe2ec;
+  --shadow:       rgba(0, 0, 0, .45);
 }
 
 /* ---------------------------------------------------------------------
@@ -51,6 +93,8 @@ body {
   line-height: 1.65;
   color: var(--ink);
   background: var(--paper);
+  /* Ease the colour change when toggling dark/light. */
+  transition: background-color .2s ease, color .2s ease;
   /* Smoother text rendering on WebKit/Firefox. */
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -72,20 +116,21 @@ a:hover { color: var(--accent-strong); text-decoration: underline; }
    4. Headings & text rhythm.
    --------------------------------------------------------------------- */
 h1, h2, h3 {
+  font-family: var(--font-mono);   /* the "serial-programmer" display look */
   color: var(--ink);
   line-height: 1.25;
-  font-weight: 650;
+  font-weight: 600;                /* dialled back from 700 — less "chunky" */
   margin: 2rem 0 0.6rem;
 }
-h1 { font-size: 1.9rem; margin-top: 0; }
+h1 { font-size: 1.95rem; margin-top: 0; }
 h2 {
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   /* A subtle accent rule under section headings. */
   border-bottom: 2px solid var(--accent);
   display: inline-block;
   padding-bottom: 0.15rem;
 }
-h3 { font-size: 1.1rem; }
+h3 { font-size: 1.08rem; }
 p  { margin: 0 0 1rem; }
 
 /* Justify body prose (bio, intro lead). `hyphens: auto` lets the browser
@@ -102,7 +147,7 @@ main p { text-align: justify; hyphens: auto; }
    --------------------------------------------------------------------- */
 .site-header {
   border-bottom: 1px solid var(--border);
-  background: var(--paper);
+  background: var(--surface);   /* white bar lifts off the grey page */
 }
 .site-header__inner {
   max-width: 880px;            /* a touch wider than the text column */
@@ -115,6 +160,7 @@ main p { text-align: justify; hyphens: auto; }
   gap: 0.5rem 1.25rem;
 }
 .site-title {
+  font-family: var(--font-mono);
   font-weight: 700;
   font-size: 1.15rem;
   color: var(--ink);
@@ -125,7 +171,8 @@ main p { text-align: justify; hyphens: auto; }
   display: flex;
   flex-wrap: wrap;
   gap: 1.1rem;
-  font-size: 0.97rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
 }
 .site-nav a { color: var(--muted); }
 .site-nav a:hover { color: var(--accent); text-decoration: none; }
@@ -136,6 +183,25 @@ main p { text-align: justify; hyphens: auto; }
   color: var(--ink);
   font-weight: 600;
 }
+
+/* Dark/light toggle. Sits in the nav row; carries both glyphs and shows the
+   one matching the *action*: a moon in light mode (click → dark), a sun in dark
+   mode (click → light). Icons inherit currentColor from .icon. */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--muted);
+  cursor: pointer;
+  line-height: 0;
+}
+.theme-toggle:hover { color: var(--accent); }
+.theme-toggle .icon { width: 1.15em; height: 1.15em; margin: 0; }
+.theme-toggle .icon--sun { display: none; }        /* light mode: show moon    */
+:root[data-theme="dark"] .theme-toggle .icon--moon { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon--sun  { display: inline; } /* dark: sun */
 
 /* ---------------------------------------------------------------------
    6. Main content column.
@@ -163,12 +229,14 @@ main {
   height: 120px;
   border-radius: 50%;          /* circular crop */
   object-fit: cover;
-  border: 3px solid var(--bg-subtle);
+  border: 3px solid var(--surface);              /* white ring */
+  box-shadow: 0 0 0 1px var(--border);           /* + a hairline to define it on grey */
   flex: 0 0 auto;
 }
 .intro__text { flex: 1 1 280px; }
-.intro__text h1 { margin-bottom: 0.25rem; }
-.intro__role { color: var(--muted); margin: 0; }
+.intro__text h1 { font-size: 2.2rem; margin-bottom: 0.35rem; }  /* the display name */
+/* Role/subtitle rendered like a code comment under the name. */
+.intro__role { font-family: var(--font-mono); font-size: 0.95rem; color: var(--muted); margin: 0; }
 
 /* ---------------------------------------------------------------------
    8. Buttons (e.g. "Download CV").
@@ -176,15 +244,16 @@ main {
 .button {
   display: inline-block;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   padding: 0.55rem 1.1rem;
-  border-radius: 6px;
-  font-size: 0.97rem;
-  font-weight: 550;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 .button:hover {
   background: var(--accent-strong);
-  color: #fff;
+  color: var(--on-accent);
   text-decoration: none;
 }
 
@@ -201,7 +270,7 @@ main {
 }
 .card {
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--bg-subtle);
   padding: 1.1rem 1.2rem;
 }
@@ -217,47 +286,55 @@ a.project-card {
   color: inherit;
   overflow: hidden;
   padding: 0;                 /* image is flush to the card edges */
-  transition: border-color .15s, box-shadow .15s;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color .15s, box-shadow .15s, transform .15s;
 }
 a.project-card:hover {
   text-decoration: none;
   border-color: var(--accent);
-  box-shadow: 0 2px 10px rgba(26, 31, 43, .07);
+  box-shadow: 0 6px 18px var(--shadow);
+  transform: translateY(-2px);   /* card lifts slightly on hover */
 }
 .project-card__thumb {
   width: 100%;
   aspect-ratio: 16 / 9;       /* uniform card heights regardless of image */
   object-fit: contain;        /* show full figure (plots), don't crop */
-  background: #fff;
+  background: var(--plate);   /* white plate — plots have white backgrounds */
   border-bottom: 1px solid var(--border);
 }
 .project-card__body { padding: 1rem 1.2rem 1.2rem; }
 .project-card__body h3 { margin: 0 0 .35rem; color: var(--ink); }
 .project-card__body p  { color: var(--muted); margin: 0 0 .8rem; font-size: .95rem; }
 
-/* Lighter "tools" cards: no thumbnail, plain surface. */
-a.project-card--tool { background: var(--paper); }
+/* Tool cards use the same grey fill as research cards; they simply carry no
+   thumbnail (see project-card.html). No colour override needed. */
 
 /* Section label above each group of cards. */
 .section-label { margin-top: 2.5rem; }
-.section-note  { color: var(--muted); margin-top: .2rem; }
+.section-note  { font-family: var(--font-mono); font-size: .9rem; color: var(--muted); margin-top: .2rem; }
 
 /* --- Tag chips -------------------------------------------------------- */
 .tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: auto; }
+/* Monospace pills, from the serial-programmer look. Own tokens so they keep
+   contrast in both themes (dark pill on light, light pill on dark). */
 .tag {
-  font-size: .75rem;
-  color: var(--accent-strong);
-  background: #eef2f7;
-  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  color: var(--tag-fg);
+  background: var(--tag-bg);
+  border: 1px solid var(--tag-bg);
   border-radius: 999px;
-  padding: .12rem .6rem;
+  padding: .14rem .62rem;
   white-space: nowrap;
 }
 
 /* A small status badge (e.g. "Work in progress", "Published"). */
 .badge {
   display: inline-block;
-  font-size: .72rem;
+  font-family: var(--font-mono);
+  font-size: .68rem;
   font-weight: 600;
   letter-spacing: .03em;
   text-transform: uppercase;
@@ -271,7 +348,7 @@ a.project-card--tool { background: var(--paper); }
 /* --------------------------------------------------------------------- */
 /*  Project detail pages (projects/<slug>/index.html)                    */
 /* --------------------------------------------------------------------- */
-.back-link { font-size: .92rem; display: inline-block; margin-bottom: 1rem; }
+.back-link { font-family: var(--font-mono); font-size: .85rem; display: inline-block; margin-bottom: 1rem; }
 
 /* A figure with caption. Border keeps light plots from bleeding into the
    white page. */
@@ -280,7 +357,7 @@ figure.figure img {
   width: 100%;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: #fff;
+  background: var(--plate);   /* white plate — plots have white backgrounds */
 }
 figure.figure figcaption {
   color: var(--muted);
@@ -295,10 +372,12 @@ figure.figure figcaption {
   display: inline-flex;
   align-items: center;
   gap: .4rem;
+  background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 8px;
   padding: .4rem .8rem;
-  font-size: .92rem;
+  font-family: var(--font-mono);
+  font-size: .85rem;
   color: var(--accent);
 }
 .link-row a:hover { border-color: var(--accent); text-decoration: none; }
@@ -307,7 +386,7 @@ figure.figure figcaption {
 /* "At a glance" key-value list on detail pages. */
 .facts { border-top: 1px solid var(--border); margin: 1.5rem 0; padding-top: 1rem; }
 .facts div { display: flex; gap: .6rem; padding: .25rem 0; font-size: .95rem; }
-.facts dt { flex: 0 0 130px; color: var(--muted); margin: 0; }
+.facts dt { flex: 0 0 130px; font-family: var(--font-mono); font-size: .88rem; color: var(--muted); margin: 0; }
 .facts dd { margin: 0; }
 
 /* ---------------------------------------------------------------------
@@ -320,8 +399,8 @@ figure.figure figcaption {
 }
 .pub-item:last-child { border-bottom: 0; }
 .pub-title  { font-weight: 600; color: var(--ink); }
-.pub-meta   { color: var(--muted); font-size: 0.95rem; margin: 0.15rem 0; }
-.pub-links  { font-size: 0.9rem; }
+.pub-meta   { font-family: var(--font-mono); color: var(--muted); font-size: 0.88rem; margin: 0.15rem 0; }
+.pub-links  { font-family: var(--font-mono); font-size: 0.85rem; }
 .pub-links a { margin-right: 0.9rem; }
 
 /* "BibTeX" copy button, styled to sit inline with the link list. It's a real
@@ -343,12 +422,13 @@ figure.figure figcaption {
   left: 50%;
   bottom: 1.5rem;
   transform: translateX(-50%) translateY(0.75rem);
-  background: var(--ink);
-  color: #fff;
+  /* Fixed dark chip in both themes (independent of --ink, which flips). */
+  background: #1f2733;
+  color: #f4f6fa;
   padding: 0.6rem 1rem;
   border-radius: 6px;
   font-size: 0.9rem;
-  box-shadow: 0 4px 16px rgba(26, 31, 43, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s ease, transform 0.2s ease;
@@ -376,7 +456,8 @@ figure.figure figcaption {
 .site-footer {
   border-top: 1px solid var(--border);
   color: var(--muted);
-  font-size: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
 }
 .site-footer__inner {
   max-width: var(--measure);

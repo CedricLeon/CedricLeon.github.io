@@ -1,7 +1,10 @@
 <!-- Footer social links. Icons are inline monochrome SVGs (inherit link colour
      via currentColor, so they turn accent on hover like the text).
      Order: Email · LinkedIn · Scholar · GitHub · Kudos.
-     The Kudos mark is hand-built here: one tapered blade rotated 6× into a star. -->
+     The Kudos mark is the real logo traced to a single vector path (from
+     assets/growkudos_logo.svg). Its <g> keeps the tracer's flip transform
+     (translate+negative scale); the fill is left off so it inherits
+     currentColor from .icon like the other glyphs. -->
 <footer class="site-footer">
   <div class="site-footer__inner">
     <a class="social-link" href="mailto:cedric.leonard@dlr.de">
@@ -21,7 +24,7 @@
       GitHub
     </a>
     <a class="social-link" href="https://www.growkudos.com/profile/cedric_leonard" target="_blank" rel="noopener">
-      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><g><path d="M12 9 9.9 2.4 14.1 2.4Z"/><path d="M12 9 9.9 2.4 14.1 2.4Z" transform="rotate(60 12 12)"/><path d="M12 9 9.9 2.4 14.1 2.4Z" transform="rotate(120 12 12)"/><path d="M12 9 9.9 2.4 14.1 2.4Z" transform="rotate(180 12 12)"/><path d="M12 9 9.9 2.4 14.1 2.4Z" transform="rotate(240 12 12)"/><path d="M12 9 9.9 2.4 14.1 2.4Z" transform="rotate(300 12 12)"/></g></svg>
+      <svg class="icon" viewBox="0 0 400 400" aria-hidden="true"><g transform="translate(0,400) scale(0.1,-0.1)"><path d="M1739 3481 l-23 -18 18 -119 c20 -131 26 -172 86 -549 87 -556 86 -542 65 -565 -10 -11 -27 -20 -38 -20 -20 0 -25 3 -242 175 -441 350 -674 534 -702 554 -58 43 -68 33 -197 -187 -111 -190 -125 -223 -108 -248 9 -15 33 -25 641 -260 543 -210 557 -217 534 -267 -9 -19 -112 -61 -583 -238 -315 -117 -579 -220 -587 -227 -7 -7 -13 -23 -13 -34 0 -19 125 -246 207 -375 48 -77 59 -74 212 49 69 56 241 194 381 307 140 113 295 238 345 278 51 42 99 73 111 73 27 0 54 -25 54 -50 0 -10 -40 -281 -90 -603 -49 -322 -90 -594 -90 -605 0 -47 28 -52 275 -52 259 0 275 4 275 63 0 18 -14 118 -30 222 -17 105 -37 235 -45 290 -8 55 -35 231 -60 390 -25 160 -45 295 -45 302 0 19 30 43 55 43 16 0 176 -123 494 -380 520 -420 509 -413 551 -342 159 265 220 375 220 396 0 18 -8 30 -27 39 -16 8 -277 108 -582 223 -478 181 -555 212 -562 233 -7 17 -5 30 4 45 10 15 174 83 577 240 309 121 569 226 576 234 8 7 14 23 14 34 0 19 -178 330 -227 396 -45 60 15 100 -708 -472 -183 -145 -318 -246 -331 -246 -11 0 -29 9 -39 20 -20 22 -34 -80 130 965 8 50 20 130 27 179 18 130 27 126 -267 126 -213 0 -235 -2 -256 -19z"/></g></svg>
       Kudos
     </a>
   </div>

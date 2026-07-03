@@ -13,15 +13,11 @@ Audience: recruiters and potential collaborators. Tone: formal/academic, with a 
 - Root-relative links (`/style.css`, `/projects.html`). No custom domain yet.
 
 ## Local preview
-Requires Ruby + Bundler (installed via winget: `RubyInstallerTeam.RubyWithDevKit.3.3`).
-In a terminal **that has Ruby on PATH** (open a fresh one; RubyInstaller adds it):
+Requires Ruby + Bundler (installed via winget: `RubyInstallerTeam.RubyWithDevKit.3.3`):
 
 ```bash
 bundle exec jekyll serve     # → http://127.0.0.1:4000, rebuilds on save
 ```
-
-The old `python -m http.server` / VS Code Live Server preview no longer works —
-the sources contain Liquid and must be built first.
 
 ## Repo layout
 - `_config.yml` — config (collections, layout defaults, `exclude` list).

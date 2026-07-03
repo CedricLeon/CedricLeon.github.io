@@ -1,7 +1,11 @@
 /* site.js — tiny progressive-enhancement helpers (no framework, no build).
-   Currently: copy-to-clipboard for BibTeX citations.
+   Handles: (1) the dark/light theme toggle, (2) copy-to-clipboard for BibTeX.
 
-   Markup contract (see publications.html):
+   Theme note: the *initial* theme is applied by an inline script in head.html
+   (it must run before first paint). Here we only handle the click that flips it
+   and remember the choice in localStorage.
+
+   BibTeX markup contract (see publications.html):
      <button data-cite="cite-xyz">BibTeX</button>
      <script type="application/x-bibtex" id="cite-xyz">@article{...}</script>
    The <script type="application/x-bibtex"> is not executed by the browser;
@@ -10,6 +14,16 @@
 (function () {
   "use strict";
 
+  // --- Dark / light theme toggle -------------------------------------------
+  document.addEventListener("click", function (event) {
+    if (!event.target.closest(".theme-toggle")) return;
+    var root = document.documentElement;
+    var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("theme", next); } catch (e) {}
+  });
+
+  // --- Copy BibTeX to clipboard --------------------------------------------
   document.addEventListener("click", function (event) {
     var btn = event.target.closest("[data-cite]");
     if (!btn) return;
