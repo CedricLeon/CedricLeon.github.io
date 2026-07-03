@@ -1,0 +1,31 @@
+- title: "FPGA-Enabled Machine Learning Applications in Earth Observation: A Systematic Review"
+  authors: "Cédric Léonard, Dirk Stober, Martin Schulz"
+  venue: "ACM Computing Surveys 58(11), Article 283"
+  year: 2026
+  article_url: "https://doi.org/10.1145/3800686"
+  project_url: "/projects/fpga-ml-eo-survey/"
+  bibtex: |
+    @article{10.1145/3800686,
+    author = {Leonard, Cedric and Stober, Dirk and Schulz, Martin},
+    title = {FPGA-Enabled Machine Learning Applications in Earth Observation: A Systematic Review},
+    year = {2026},
+    issue_date = {August 2026},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    volume = {58},
+    number = {11},
+    issn = {0360-0300},
+    url = {https://doi.org/10.1145/3800686},
+    doi = {10.1145/3800686},
+    journal = {ACM Comput. Surv.},
+    month = apr,
+    articleno = {283},
+    numpages = {36},
+    keywords = {Earth observation, remote sensing, neural networks, approximate computing}
+    }
+
+- title: "Early Compression of SAR Data Pre-Focusing"
+  venue: "EUSAR 2026"
+  note: "full citation to be confirmed"
+  badge: "Details TBC"
+  project_url: "/projects/onboard-sar-compression/"

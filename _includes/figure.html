@@ -1,0 +1,6 @@
+<!-- Captioned figure. Params: include.src, include.alt, include.caption (optional).
+     Usage: {% raw %}{% include figure.html src="…" alt="…" caption="…" %}{% endraw %} -->
+<figure class="figure">
+  <img src="{{ include.src }}" alt="{{ include.alt | escape }}">
+  {% if include.caption %}<figcaption>{{ include.caption | escape }}</figcaption>{% endif %}
+</figure>

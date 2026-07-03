@@ -1,0 +1,29 @@
+---
+title: Publications
+description: Publications by Cédric Léonard.
+---
+<h1>Publications</h1>
+<p>
+  Peer-reviewed work on machine learning for Earth observation and SAR. See
+  also my <a href="https://scholar.google.com/citations?user=g9YeowkAAAAJ&amp;hl=fr&amp;oi=ao" target="_blank" rel="noopener">Google&nbsp;Scholar</a> profile.
+</p>
+
+<ul class="pub-list">
+  {%- for pub in site.data.publications -%}
+  <li class="pub-item">
+    <div class="pub-title">{{ pub.title | escape }}{% if pub.badge %} <span class="badge badge--wip">{{ pub.badge | escape }}</span>{% endif %}</div>
+    <p class="pub-meta">
+      {%- if pub.authors %}{{ pub.authors | escape }} · {% endif -%}
+      {{ pub.venue | escape }}
+      {%- if pub.note %} · {{ pub.note | escape }}{% endif -%}
+      {%- if pub.year %} · {{ pub.year }}{% endif -%}
+    </p>
+    <p class="pub-links">
+      {%- if pub.article_url %}<a href="{{ pub.article_url }}" target="_blank" rel="noopener">Article</a>{% endif %}
+      {%- if pub.bibtex %}<button type="button" class="pub-cite" data-cite="cite-{{ forloop.index }}">BibTeX</button>{% endif %}
+      {%- if pub.project_url %}<a href="{{ pub.project_url }}">Project page</a>{% endif %}
+    </p>
+    {%- if pub.bibtex %}<script type="application/x-bibtex" id="cite-{{ forloop.index }}">{{ pub.bibtex }}</script>{% endif %}
+  </li>
+  {%- endfor -%}
+</ul>

@@ -1,0 +1,34 @@
+title: Cédric Léonard
+description: >-
+  PhD researcher at DLR / TUM — deep learning for SAR and efficient onboard AI.
+url: "https://cedricleon.github.io"
+baseurl: ""
+
+markdown: kramdown
+
+# Per-project detail pages live in the `projects` collection: one Markdown file
+# each, output at /projects/<filename>/ (matches the previous hand-built URLs).
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+
+# Default layouts. The second (more specific) scope wins for collection docs.
+defaults:
+  - scope: { path: "" }
+    values:
+      layout: default
+  - scope: { path: "", type: projects }
+    values:
+      layout: project
+
+# Kept in the repo (synced) but never published to the site.
+exclude:
+  - README.md
+  - TODO.md
+  - CLAUDE.md
+  - Short_bio.md
+  - Gemfile
+  - Gemfile.lock
+  - project_repos/
+  - vendor/

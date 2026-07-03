@@ -1,0 +1,18 @@
+{%- comment -%}
+Base layout used by every page: <head> + site header/nav + <main>{{ content }}</main>
++ footer + the small site JS. Pages set only their own <main> content and front-matter.
+{%- endcomment -%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include head.html %}
+</head>
+<body>
+  {% include header.html %}
+  <main>
+    {{ content }}
+  </main>
+  {% include footer.html %}
+  <script src="/assets/js/site.js" defer></script>
+</body>
+</html>

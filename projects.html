@@ -1,0 +1,28 @@
+---
+title: Projects
+description: Research projects and tools by Cédric Léonard — learned compression, SAR, and ML on FPGA.
+---
+<h1>Projects</h1>
+<p>
+  My research centres on efficient AI for Earth observation — learned
+  compression, despeckling, and deployment of these models on constrained
+  onboard hardware (FPGAs). Below are the main research threads, followed by
+  a couple of reusable tools.
+</p>
+
+<h2 class="section-label">Research</h2>
+<div class="card-grid">
+  {%- assign research = site.projects | where: "category", "research" | sort: "order" | reverse -%}
+  {%- for project in research -%}
+    {% include project-card.html project=project %}
+  {%- endfor -%}
+</div>
+
+<h2 class="section-label">Tools &amp; utilities</h2>
+<p class="section-note">Smaller side-projects — reusable tooling rather than research contributions.</p>
+<div class="card-grid">
+  {%- assign tools = site.projects | where: "category", "tool" | sort: "order" | reverse -%}
+  {%- for project in tools -%}
+    {% include project-card.html project=project %}
+  {%- endfor -%}
+</div>

@@ -1,0 +1,14 @@
+# Local source material used to build the project pages — NOT for publishing.
+# Contains cloned private / unreleased / DLR-internal repositories.
+# Must never be committed or pushed to the public GitHub Pages repo.
+project_repos/
+
+# Jekyll build output & cache
+_site/
+.jekyll-cache/
+.jekyll-metadata
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp

@@ -1,0 +1,13 @@
+{%- comment -%}
+One project card for the index grid. Param: include.project (a _projects doc).
+Reads its front-matter: category, thumb/thumb_alt, title, badge, summary, tags.
+{%- endcomment -%}
+{%- assign p = include.project -%}
+<a class="project-card{% if p.category == 'tool' %} project-card--tool{% endif %}" href="{{ p.url }}">
+  {% if p.thumb %}<img class="project-card__thumb" src="{{ p.thumb }}" alt="{{ p.thumb_alt | escape }}" loading="lazy">{% endif %}
+  <div class="project-card__body">
+    <h3>{{ p.title | escape }}{% if p.badge %} <span class="badge badge--{{ p.badge_class | default: 'published' }}">{{ p.badge | escape }}</span>{% endif %}</h3>
+    <p>{{ p.summary | escape }}</p>
+    {% if p.tags %}<div class="tags">{% for tag in p.tags %}<span class="tag">{{ tag | escape }}</span>{% endfor %}</div>{% endif %}
+  </div>
+</a>

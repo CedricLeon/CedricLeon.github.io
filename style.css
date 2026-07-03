@@ -1,0 +1,406 @@
+/* =====================================================================
+   style.css — single shared stylesheet for the whole site.
+   Every page links this file with <link rel="stylesheet" href="/style.css">.
+
+   First-time-HTML note: CSS = "Cascading Style Sheets". It describes how
+   the HTML elements look. A rule is `selector { property: value; }`.
+   The `selector` picks which elements to style (by tag name like `body`,
+   by class like `.card`, or by id like `#foo`).
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   1. Design tokens (CSS custom properties / "variables").
+   Anything declared on :root is available everywhere as var(--name).
+   Keeping colours and spacing here means the whole site can be
+   re-themed by editing this one block.
+   --------------------------------------------------------------------- */
+:root {
+  /* Palette — deep slate-blue accent on a clean white base. */
+  --paper:        #ffffff;  /* page background                       */
+  --bg-subtle:    #f5f7f9;  /* cards / secondary surfaces            */
+  --ink:          #1a1f2b;  /* primary text                          */
+  --muted:        #5b6472;  /* secondary text (dates, captions)      */
+  --border:       #e4e8ec;  /* hairlines                             */
+  --accent:       #2a4d77;  /* links, headings accent (slate blue)   */
+  --accent-strong:#1c3656;  /* hover/active accent                   */
+
+  /* Typography — a system font stack: uses whatever sans-serif the
+     visitor's OS already has, so there is no web font to download. */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               Helvetica, Arial, sans-serif;
+
+  /* Layout */
+  --measure: 720px;   /* max text width for comfortable reading      */
+  --gap:     1.25rem; /* base spacing unit (rem = relative to root)  */
+}
+
+/* ---------------------------------------------------------------------
+   2. Base / reset.
+   `box-sizing: border-box` makes width include padding+border — far
+   more intuitive than the default. The `*` selector applies it to
+   every element.
+   --------------------------------------------------------------------- */
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;     /* ~17px base */
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--paper);
+  /* Smoother text rendering on WebKit/Firefox. */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Images never overflow their container. */
+img { max-width: 100%; height: auto; display: block; }
+
+/* ---------------------------------------------------------------------
+   3. Links.
+   --------------------------------------------------------------------- */
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover { color: var(--accent-strong); text-decoration: underline; }
+
+/* ---------------------------------------------------------------------
+   4. Headings & text rhythm.
+   --------------------------------------------------------------------- */
+h1, h2, h3 {
+  color: var(--ink);
+  line-height: 1.25;
+  font-weight: 650;
+  margin: 2rem 0 0.6rem;
+}
+h1 { font-size: 1.9rem; margin-top: 0; }
+h2 {
+  font-size: 1.35rem;
+  /* A subtle accent rule under section headings. */
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
+  padding-bottom: 0.15rem;
+}
+h3 { font-size: 1.1rem; }
+p  { margin: 0 0 1rem; }
+
+/* Justify body prose (bio, intro lead). `hyphens: auto` lets the browser
+   hyphenate at line ends so justification doesn't open up big gaps.
+   Scoped to <main> so nav/footer/short captions stay left-aligned. */
+main p { text-align: justify; hyphens: auto; }
+
+/* ---------------------------------------------------------------------
+   5. Site header + navigation.
+   The header uses flexbox: `display:flex` lays children in a row,
+   `justify-content:space-between` pushes name left and nav right,
+   and `flex-wrap:wrap` lets the nav drop below the name on narrow
+   screens — that is our whole "responsive nav", no JavaScript needed.
+   --------------------------------------------------------------------- */
+.site-header {
+  border-bottom: 1px solid var(--border);
+  background: var(--paper);
+}
+.site-header__inner {
+  max-width: 880px;            /* a touch wider than the text column */
+  margin: 0 auto;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1.25rem;
+}
+.site-title {
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--ink);
+}
+.site-title:hover { text-decoration: none; color: var(--accent); }
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1rem;
+  font-size: 0.97rem;
+}
+.site-nav a { color: var(--muted); }
+.site-nav a:hover { color: var(--accent); text-decoration: none; }
+
+/* The current page's nav link is marked with aria-current="page" in the
+   HTML (good for screen readers); we also style it so it stands out. */
+.site-nav a[aria-current="page"] {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------------------------
+   6. Main content column.
+   Centred and capped at --measure so lines never get too long to read.
+   --------------------------------------------------------------------- */
+main {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+}
+.lead { font-size: 1.15rem; color: var(--ink); }
+
+/* ---------------------------------------------------------------------
+   7. Homepage intro (headshot + greeting).
+   --------------------------------------------------------------------- */
+.intro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+.intro__photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;          /* circular crop */
+  object-fit: cover;
+  border: 3px solid var(--bg-subtle);
+  flex: 0 0 auto;
+}
+.intro__text { flex: 1 1 280px; }
+.intro__text h1 { margin-bottom: 0.25rem; }
+.intro__role { color: var(--muted); margin: 0; }
+
+/* ---------------------------------------------------------------------
+   8. Buttons (e.g. "Download CV").
+   --------------------------------------------------------------------- */
+.button {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  padding: 0.55rem 1.1rem;
+  border-radius: 6px;
+  font-size: 0.97rem;
+  font-weight: 550;
+}
+.button:hover {
+  background: var(--accent-strong);
+  color: #fff;
+  text-decoration: none;
+}
+
+/* ---------------------------------------------------------------------
+   9. Project cards (projects.html).
+   CSS Grid auto-fits as many columns as fit; each column is at least
+   240px wide, so it becomes 1 column on phones and 2+ on wider screens.
+   --------------------------------------------------------------------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--gap);
+  margin-top: 1.5rem;
+}
+.card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-subtle);
+  padding: 1.1rem 1.2rem;
+}
+.card h3 { margin-top: 0; }
+.card p  { color: var(--muted); margin-bottom: 0; }
+
+/* --- Project cards with a thumbnail figure ---------------------------- */
+/* The whole card is a link. `overflow:hidden` clips the thumbnail to the
+   rounded corners; flex column keeps the footer tags at the bottom. */
+a.project-card {
+  display: flex;
+  flex-direction: column;
+  color: inherit;
+  overflow: hidden;
+  padding: 0;                 /* image is flush to the card edges */
+  transition: border-color .15s, box-shadow .15s;
+}
+a.project-card:hover {
+  text-decoration: none;
+  border-color: var(--accent);
+  box-shadow: 0 2px 10px rgba(26, 31, 43, .07);
+}
+.project-card__thumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;       /* uniform card heights regardless of image */
+  object-fit: contain;        /* show full figure (plots), don't crop */
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+}
+.project-card__body { padding: 1rem 1.2rem 1.2rem; }
+.project-card__body h3 { margin: 0 0 .35rem; color: var(--ink); }
+.project-card__body p  { color: var(--muted); margin: 0 0 .8rem; font-size: .95rem; }
+
+/* Lighter "tools" cards: no thumbnail, plain surface. */
+a.project-card--tool { background: var(--paper); }
+
+/* Section label above each group of cards. */
+.section-label { margin-top: 2.5rem; }
+.section-note  { color: var(--muted); margin-top: .2rem; }
+
+/* --- Tag chips -------------------------------------------------------- */
+.tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: auto; }
+.tag {
+  font-size: .75rem;
+  color: var(--accent-strong);
+  background: #eef2f7;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: .12rem .6rem;
+  white-space: nowrap;
+}
+
+/* A small status badge (e.g. "Work in progress", "Published"). */
+.badge {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  padding: .12rem .5rem;
+  vertical-align: middle;
+}
+.badge--wip       { color: #8a5a00; background: #fdf1dd; border: 1px solid #f0d9a8; }
+.badge--published { color: #1c5233; background: #e4f3ea; border: 1px solid #bfe0cc; }
+
+/* --------------------------------------------------------------------- */
+/*  Project detail pages (projects/<slug>/index.html)                    */
+/* --------------------------------------------------------------------- */
+.back-link { font-size: .92rem; display: inline-block; margin-bottom: 1rem; }
+
+/* A figure with caption. Border keeps light plots from bleeding into the
+   white page. */
+figure.figure { margin: 1.6rem 0; }
+figure.figure img {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+}
+figure.figure figcaption {
+  color: var(--muted);
+  font-size: .9rem;
+  margin-top: .5rem;
+  text-align: left;
+}
+
+/* Row of resource links (paper / repo / venue) below the title. */
+.link-row { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1rem 0 1.5rem; }
+.link-row a {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: .4rem .8rem;
+  font-size: .92rem;
+  color: var(--accent);
+}
+.link-row a:hover { border-color: var(--accent); text-decoration: none; }
+.link-row .icon { width: 1em; height: 1em; }
+
+/* "At a glance" key-value list on detail pages. */
+.facts { border-top: 1px solid var(--border); margin: 1.5rem 0; padding-top: 1rem; }
+.facts div { display: flex; gap: .6rem; padding: .25rem 0; font-size: .95rem; }
+.facts dt { flex: 0 0 130px; color: var(--muted); margin: 0; }
+.facts dd { margin: 0; }
+
+/* ---------------------------------------------------------------------
+   10. Publications list (publications.html).
+   --------------------------------------------------------------------- */
+.pub-list { list-style: none; padding: 0; margin: 1.5rem 0 0; }
+.pub-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.pub-item:last-child { border-bottom: 0; }
+.pub-title  { font-weight: 600; color: var(--ink); }
+.pub-meta   { color: var(--muted); font-size: 0.95rem; margin: 0.15rem 0; }
+.pub-links  { font-size: 0.9rem; }
+.pub-links a { margin-right: 0.9rem; }
+
+/* "BibTeX" copy button, styled to sit inline with the link list. It's a real
+   <button> (keyboard/AT friendly) but looks like the surrounding links. */
+.pub-cite {
+  font: inherit;
+  color: var(--accent);
+  background: none;
+  border: 0;
+  padding: 0;
+  margin-right: 0.9rem;
+  cursor: pointer;
+}
+.pub-cite:hover { color: var(--accent-strong); text-decoration: underline; }
+
+/* Transient confirmation toast (created by site.js). */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1.5rem;
+  transform: translateX(-50%) translateY(0.75rem);
+  background: var(--ink);
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 16px rgba(26, 31, 43, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 50;
+}
+.toast--show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* A small reusable "to be filled in" badge for placeholders. */
+.todo {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+  background: var(--bg-subtle);
+  border: 1px dashed var(--accent);
+  border-radius: 4px;
+  padding: 0.1rem 0.45rem;
+}
+
+/* ---------------------------------------------------------------------
+   11. Footer.
+   --------------------------------------------------------------------- */
+.site-footer {
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.site-footer__inner {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 2.5rem;
+  /* Lay the social links in a wrapping row with even spacing (no more
+     manual "·" separators). */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.4rem;
+}
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--muted);
+}
+.social-link:hover { color: var(--accent); text-decoration: none; }
+
+/* Inline icons: sized to the text (1em), monochrome via currentColor so they
+   pick up the link colour (muted grey, accent on hover) — no separate fills. */
+.icon {
+  width: 1em;
+  height: 1em;
+  margin-right: 0.4em;
+  fill: currentColor;
+  flex: 0 0 auto;
+}

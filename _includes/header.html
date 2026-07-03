@@ -1,0 +1,14 @@
+<!-- Site header: name (links home) + primary nav. `aria-current="page"` marks
+     the active link; project detail pages count as the Projects section. -->
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-title" href="/">Cédric Léonard</a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="/"{% if page.url == "/" %} aria-current="page"{% endif %}>Home</a>
+      <a href="/about.html"{% if page.url == "/about.html" %} aria-current="page"{% endif %}>About</a>
+      <a href="/projects.html"{% if page.url == "/projects.html" or page.collection == "projects" %} aria-current="page"{% endif %}>Projects</a>
+      <a href="/publications.html"{% if page.url == "/publications.html" %} aria-current="page"{% endif %}>Publications</a>
+      <a href="/cv.pdf">CV</a>
+    </nav>
+  </div>
+</header>
