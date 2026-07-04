@@ -9,7 +9,7 @@ thumb: /assets/projects/fpga-ml-eo-survey/thumb.jpg
 thumb_alt: "Conceptual diagram: remote sensing, machine learning and FPGAs converging on FPGA-enabled ML for Earth observation"
 summary: "A systematic review mapping which Earth Observation (EO) tasks, ML models, and FPGA platforms the community uses."
 tags: [EO, ML, FPGA, Survey, ACM CSUR]
-lead: "A systematic review of how Machine Learning models are deployed on FPGAs for Earth observation applications. We looked at which problem the community wanted to tackle, using which models, and on what hardware."
+lead: "A systematic review of how Machine Learning (ML) models are deployed on FPGAs for Earth Observation (EO) applications. We looked at which problem the community wanted to tackle, using which models, and on what hardware."
 links:
   - { label: "Paper (ACM CSUR)", url: "https://doi.org/10.1145/3800686" }
   - { label: "Code (GitHub)", url: "https://github.com/CedricLeon/Survey_RS-ML-FPGA" }
