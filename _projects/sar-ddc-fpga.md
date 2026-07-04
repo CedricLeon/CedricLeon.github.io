@@ -2,6 +2,7 @@
 title: "Joint despeckling & compression of SAR images on FPGA"
 category: research
 order: 4
+project_date: "2025–2026"
 badge: "To be published"
 badge_class: wip
 thumb: /assets/projects/sar-ddc-fpga/SAR_DDC_inference_dataflow.png
@@ -9,6 +10,7 @@ thumb_alt: "Dataflow diagram of the joint despeckling-and-compression model, pro
 summary: "Adapting a model that despeckles and compresses SAR images together, so it can run on FPGAs."
 tags: [SAR, LIC, Despeckling, FPGA]
 lead: "Future SAR satellites will collect images faster than they can send them home. This project adapts a model that denoises and compresses SAR images together, so it can run on low-power chips used onboard satellites."
+credits: { label: "Thanks to", text: "Francescopaolo Sica and Martin Schulz." }
 facts:
   - { label: "Task", value: "Joint SAR despeckling + compression, adapted for FPGA" }
   - { label: "Data", value: "TerraSAR-X StripMap (SSC)" }

@@ -2,6 +2,10 @@
   authors: "Cédric Léonard, Dirk Stober, Martin Schulz"
   venue: "ACM Computing Surveys 58(11), Article 283"
   year: 2026
+  type: "Journal paper"
+  citation:
+    style: "ACM Ref"
+    text: "Cedric Leonard, Dirk Stober, and Martin Schulz. 2026. FPGA-Enabled Machine Learning Applications in Earth Observation: A Systematic Review. ACM Comput. Surv. 58, 11, Article 283 (August 2026), 36 pages. https://doi.org/10.1145/3800686"
   article_url: "https://doi.org/10.1145/3800686"
   project_url: "/projects/fpga-ml-eo-survey/"
   bibtex: |
@@ -26,6 +30,5 @@
 
 - title: "Early Compression of SAR Data Pre-Focusing"
   venue: "EUSAR 2026"
-  note: "full citation to be confirmed"
-  badge: "Details TBC"
+  type: "Conference paper"
   project_url: "/projects/onboard-sar-compression/"

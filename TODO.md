@@ -22,23 +22,23 @@ which should sidestep whatever it got stuck on.
 
 ---
 
-## Critical path to publish v1
+## v1 is live 🎉
+
+Pushed as commit `79efdab` (2026-07-04). The fresh push superseded the stuck
+queued run — confirmed via the public API that build, deploy, and
+report-build-status all succeeded, and **cedricleon.github.io is live** with
+the new content (checked the homepage and the SAR_DDC_FPGA page directly).
 
 - [x] Read through all current content for accuracy/tone — **(you)**
-- [x] Final safety scan before pushing: build check + scan for stray
-      dev notes (found one `@TODO` in `learned-compression-rs.md` that would
-      have rendered publicly — turned into an HTML comment so it's invisible
-      on the page but still there in the source) — **(agent)**
-- [ ] Commit + push the current batch of changes (LICENSE, new figures/
-      thumbnails, SAR_DDC_FPGA rewrite, tone pass, dark mode, figure-row +
-      clickable-facts features) — **(agent, doing now)**
-- [ ] Confirm the fresh push produces a new, successful "pages build and
-      deployment" run (not the stuck queued one) — **(agent will check)**
-- [ ] Once live, sanity-check cedricleon.github.io in a real browser —
-      **(you)**
-- [ ] Repo visibility: free plan → Pages needs a **public** repo. If you're on
-      GitHub Pro/Team, you can go private and the published site stays public
-      either way — **(you decide, check your plan)**
+- [x] Final safety scan before pushing: build check + scan for stray dev
+      notes (found one `@TODO` in `learned-compression-rs.md` that would have
+      rendered publicly — turned into an HTML comment) — **(agent)**
+- [x] Commit + push (excluded `.vscode/` and 6 unused/huge SAR_DDC_FPGA
+      source images from the commit to keep repo history lean — they're still
+      sitting untracked locally in `assets/projects/sar-ddc-fpga/` if wanted
+      later)
+- [x] Confirmed the fresh run succeeded end-to-end (not the stuck one)
+- [x] Sanity-check cedricleon.github.io yourself in a real browser — **(you)**
 
 ## Working remotely after that (push-only, no local Jekyll)
 
@@ -62,8 +62,15 @@ few habits make it safer:
 
 ## Content — still open (can happen anytime, incl. remotely)
 
-- [ ] Credits / collaborators component near the top of project pages —
-      **(agent proposes, iterate)**
+- [x] Credits / collaborators component near the top of project pages —
+      **(agent)**: optional `credits: { label, text }` front-matter field,
+      customizable per project (e.g. "Builds on", "Thanks to", "Inspired
+      by"), rendered as a small pill + text, right under the links. You've
+      already started using it on a few projects yourself.
+- [x] `project_date:` added to all 6 projects with the ranges you gave me
+      (SAR_DDC_FPGA 2025–2026, MAYA_DC 2026, Survey 2023–2025, LIC for RS
+      2023, HyLightning 2022–Present, RSS digest 2025–Present) — shown as a
+      pill top-right, level with "← Back to projects".
 - [ ] Compression project public link — specific paper link vs "see Scholar"?
       — **(you decide)**
 - [ ] MAYA: exact Maya4 Hugging Face URL — **(you)**:
@@ -71,6 +78,8 @@ few habits make it safer:
 - [ ] BibTeX + links pattern for every publication (done for the survey;
       reuse) — **(agent)**: other publications not published yet, or check
       DLR elib
+- [ ] Add the SAR_DDC_FPGA paper to `_data/publications.yml` once it's on
+      arXiv — **(you)**: use `type: "Preprint"`
 - [ ] BNN/AdderNet (Tigran) write-up; acknowledge Tigran in the RS_DC repo —
       **(you, later)**
 - [ ] Release the MAYA repo + add its link (rss-digest is already public) —
@@ -79,15 +88,56 @@ few habits make it safer:
       later)**
 - [ ] Same de-LLM tone pass for `about.md` / `index.html` — only
       `_projects/*.md` covered so far
-- [ ] Add the date (or range) to all projects
+- [ ] About page: expand into subsections (Education / Research interests /
+      Teaching / etc.) — **(you)**: no code needed, just add `## Heading`
+      Markdown headings to `about.md` like any other page; ask if you'd
+      also like a jump-link table of contents once there are several.
 
-## Design polish (post-v1, not urgent)
+## Design polish
 
-- [ ] Make images clickable (lightbox-style), like
-      https://jamstackthemes.dev/demo/theme/jekyll-theme-serial-programmer/
+- [x] Sun/moon toggle icon redrawn (was visibly lopsided — rebuilt with 8
+      evenly-rotated rays, same technique as the Kudos star)
+- [x] Nav reordered: Home, Projects, Publications, CV, About, then the
+      theme toggle at the very right
+- [x] Sticky footer — stays pinned to the bottom of the viewport on
+      short-content pages (e.g. home) instead of floating mid-page; still
+      flows normally after content on long pages. Also shrunk (equal
+      padding all round, was much taller at the bottom) and the social-link
+      row is now centred both ways instead of hugging the left edge.
+- [x] Footer social links lift slightly on hover instead of growing (the
+      grow felt less smooth than a small `translateY`); Kudos icon rendered
+      larger (it read smaller than the others at the same 1em box)
+- [x] Project-page lead/summary now renders as an Obsidian-style callout box
+      (tinted panel + coloured left bar) instead of reading like body text
+- [x] Thin `<hr class="rule">` divider added under the project title, and
+      another after the facts block when a footnote follows
+- [x] Credits restyled to stand out more (label is now a small dark pill,
+      text in full ink instead of muted) and moved to sit under the link-row
+      instead of above it
+- [x] Publications rolled back to a simpler, plain title-link (no more
+      "stretch the whole row" trick — it made text inside the item, like
+      the author list, awkward to select). Title links straight to the
+      article when published; plain text otherwise. Kept: authors/venue on
+      separate lines, the type tag, "… · Proceedings to come" for
+      unpublished entries. The abstract hover card was tried and then rolled
+      back too — no abstract mechanism anymore, at your request.
+- [x] Publication title colour: was accent blue, now inherits the normal ink
+      colour (reads white in dark mode, dark ink in light mode) — still a
+      real link, just not shouting blue
+- [x] "Cite" button added (before BibTeX/Project page): copies a
+      ready-to-paste reference string via a new `citation: { style, text }`
+      field per publication; the confirmation toast reads "Citation
+      ({{ style }}) copied to your clipboard", so the style label (currently
+      "ACM Ref" on the survey) is whatever fits a future publication's venue
+      (IEEE, APA, …). The copy-to-clipboard code in `site.js` is now generic
+      (`data-copy` / `data-copy-msg`), shared between Cite and BibTeX.
+- [x] Image lightbox: click any figure to see it full-size on a dark
+      overlay; click anywhere or press Escape to close. Plain JS in
+      `site.js`, no dependency.
+- [x] Light mode: project/generic cards now use a soft blue tint
+      (`--card-bg`) instead of grey, via a new token — dark mode unchanged
 - [ ] Revisit the heading font — currently monospace, you found it a touch
       "chunky"; try a lighter weight or a sans alternative
-- [ ] In light mode, projects card should be of a very light blue instead of gray
 - [ ] Make the thumbnails less high (smaller height), and crop the text out of the Hylightning logo.
 - [ ] Replace the ScaleHyperpior architecture sthumbnail with the tikx version so colors match the other thumbnails.
 

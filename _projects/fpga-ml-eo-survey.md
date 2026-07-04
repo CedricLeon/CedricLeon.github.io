@@ -2,6 +2,7 @@
 title: "FPGA-enabled ML in Earth observation"
 category: research
 order: 2
+project_date: "2023–2025"
 badge: "Published"
 badge_class: "published"
 thumb: /assets/projects/fpga-ml-eo-survey/thumb.jpg
@@ -13,6 +14,7 @@ links:
   - { label: "Paper (ACM CSUR)", url: "https://doi.org/10.1145/3800686" }
   - { label: "Code (GitHub)", url: "https://github.com/CedricLeon/Survey_RS-ML-FPGA" }
   - { label: "Dataset (HuggingFace)", url: "https://huggingface.co/datasets/CedricLeon/Articles_systematic_survey_RS-ML-FPGA" }
+credits: { label: "Thanks to", text: "Dirk Stober and Martin Schulz." }
 facts:
   - { label: "Type", value: "Systematic review (PRISMA 2020)" }
   - { label: "Venue", value: "ACM Computing Surveys, 2026" }

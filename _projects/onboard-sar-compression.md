@@ -2,11 +2,13 @@
 title: "Onboard SAR compression before focusing"
 category: research
 order: 3
+project_date: "2026"
 thumb: /assets/projects/onboard-sar-compression/method-diagram.png
 thumb_alt: "Diagram of the Maya4 pipeline: a neural compressor inserted into the SAR focusing chain after range-cell-migration correction"
 summary: "Applying learned image compression to partially-focused SAR data, pushing compression earlier in the onboard processing chain."
 tags: [SAR, LIC, Focusing,EUSAR26]
 lead: "Synthetic Aperture Radar satellites generate enormous volumes of raw data, which is especially tedious to compress. We tried to see if we could progresss to apply LIC methods on partially-focused data."
+credits: { label: "Thanks to", text: "Roberto Del Prete and Francescopaolo Sica." }
 facts:
   - { label: "Task", value: "LIC,  on partially-focused SAR data" }
   - { label: "Data", value: "Sentinel-1 (Maya4, ESA Φ-lab)" }

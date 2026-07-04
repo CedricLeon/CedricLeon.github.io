@@ -3,11 +3,27 @@ layout: default
 ---
 {%- comment -%}
 Project detail layout (wraps `default`). Renders the shared chrome from each
-project's front-matter — back-link, title + badge, link-row, lead, then the
-Markdown body ({{ content }}), then the facts list and optional footnote.
+project's front-matter — back-link + date on one row, title + badge, a thin
+rule, link-row, then credits, then the lead as a callout box, then the
+Markdown body ({{ content }}), then a rule + facts list, and an optional
+footnote (with a closing rule, only when there's a footnote to close off).
+
+Optional front-matter used here beyond title/badge/links/lead/facts:
+  project_date: "2024–2026" — a single date or range, shown top-right,
+               level with the back-link. NOTE: named project_date, not
+               date — `date` is a reserved Jekyll variable that auto-fills
+               from the file's timestamp if left unset, which is not what
+               we want here.
+  credits:     { label: "Thanks to", text: "…" } — project-specific
+               acknowledgements; `label` is customisable per project
+               (e.g. "Inspired by", "Co-authors"), `text` is free text.
 {%- endcomment -%}
-<a class="back-link" href="/projects.html">← Back to projects</a>
+<div class="project-top-row">
+  <a class="back-link" href="/projects.html">← Back to projects</a>
+  {% if page.project_date %}<span class="project-date">{{ page.project_date | escape }}</span>{% endif %}
+</div>
 <h1>{{ page.title | escape }}{% if page.badge %} <span class="badge badge--{{ page.badge_class | default: 'published' }}">{{ page.badge | escape }}</span>{% endif %}</h1>
+<hr class="rule">
 
 {% if page.links %}
 <div class="link-row">
@@ -17,7 +33,9 @@ Markdown body ({{ content }}), then the facts list and optional footnote.
 </div>
 {% endif %}
 
-{% if page.lead %}<p class="lead">{{ page.lead | escape }}</p>{% endif %}
+{% if page.credits %}<p class="project-credits"><span class="credits-label">{{ page.credits.label | default: "Credits" | escape }}</span> {{ page.credits.text | escape }}</p>{% endif %}
+
+{% if page.lead %}<p class="lead callout">{{ page.lead | escape }}</p>{% endif %}
 
 {{ content }}
 
@@ -29,4 +47,4 @@ Markdown body ({{ content }}), then the facts list and optional footnote.
 </dl>
 {% endif %}
 
-{% if page.footnote %}<p><em>{{ page.footnote | escape }}</em></p>{% endif %}
+{% if page.footnote %}<hr class="rule"><p><em>{{ page.footnote | escape }}</em></p>{% endif %}

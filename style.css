@@ -24,7 +24,9 @@
   --surface:      #ffffff;  /* raised UI: the header bar (themed)         */
   --plate:        #ffffff;  /* figure/thumbnail plate (white in BOTH themes:
                                the plots themselves have white backgrounds) */
-  --bg-subtle:    #e9ebef;  /* every card + secondary fills               */
+  --bg-subtle:    #e9ebef;  /* secondary fills (date pill, todo chip)     */
+  --card-bg:      #e9f1fc;  /* project/generic cards — a soft blue tint,
+                               distinct from --bg-subtle, light mode only */
   --ink:          #1a1f2b;  /* primary text                              */
   --muted:        #5b6472;  /* secondary text (dates, captions)          */
   --border:       #d9dde3;  /* hairlines                                 */
@@ -65,6 +67,7 @@
   --surface:      #161d28;  /* dark raised header bar                    */
   --plate:        #ffffff;  /* figures stay on white                     */
   --bg-subtle:    #1b2431;
+  --card-bg:      #1b2431;  /* no blue tint requested for dark mode — same as light's --bg-subtle role */
   --ink:          #e7ebf1;
   --muted:        #97a1b0;
   --border:       #2a3542;
@@ -84,7 +87,7 @@
    --------------------------------------------------------------------- */
 * { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; height: 100%; }
 
 body {
   margin: 0;
@@ -98,6 +101,13 @@ body {
   /* Smoother text rendering on WebKit/Firefox. */
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* Sticky footer: stack header/main/footer vertically and let main soak up
+     any leftover height, so the footer sits at the bottom of the viewport on
+     short pages instead of floating mid-page, but still flows after the
+     content normally on long pages. */
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Images never overflow their container. */
@@ -211,6 +221,8 @@ main {
   max-width: var(--measure);
   margin: 0 auto;
   padding: 2.5rem 1.25rem 4rem;
+  width: 100%;      /* fill the flex row so max-width/margin:auto still centre it */
+  flex: 1 0 auto;   /* soak up leftover vertical space — pushes the footer down */
 }
 .lead { font-size: 1.15rem; color: var(--ink); }
 
@@ -271,7 +283,7 @@ main {
 .card {
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: var(--bg-subtle);
+  background: var(--card-bg);
   padding: 1.1rem 1.2rem;
 }
 .card h3 { margin-top: 0; }
@@ -286,7 +298,7 @@ a.project-card {
   color: inherit;
   overflow: hidden;
   padding: 0;                 /* image is flush to the card edges */
-  background: var(--bg-subtle);
+  background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   transition: border-color .15s, box-shadow .15s, transform .15s;
@@ -348,16 +360,106 @@ a.project-card:hover {
 /* --------------------------------------------------------------------- */
 /*  Project detail pages (projects/<slug>/index.html)                    */
 /* --------------------------------------------------------------------- */
-.back-link { font-family: var(--font-mono); font-size: .85rem; display: inline-block; margin-bottom: 1rem; }
+.back-link { font-family: var(--font-mono); font-size: .85rem; display: inline-block; }
+
+/* A plain thin divider, reused wherever we want a hairline break (under the
+   title, and after the facts block when a footnote follows). */
+.rule { border: 0; border-top: 1px solid var(--border); margin: 1rem 0; }
+
+/* Back-link and the project date share a row: back-link left, date pinned
+   to the right at the same height. */
+.project-top-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .5rem;
+  margin-bottom: 1rem;
+}
+/* The date "pops" a bit — accent-coloured pill rather than plain muted text,
+   so it reads as a distinct piece of metadata, not body copy. */
+.project-date {
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: .15rem .7rem;
+  white-space: nowrap;
+}
+
+.project-credits {
+  font-size: .92rem;
+  color: var(--ink);     /* full ink, not muted — reads as more than a footnote */
+  margin: 1rem 0 0;
+  text-align: left;      /* override main p's justify — this is a short meta line */
+}
+/* The customizable "label" (e.g. "Builds on", "Thanks to") as a small pill,
+   matching the tag/badge visual language used elsewhere. */
+.project-credits .credits-label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  background: var(--tag-bg);
+  color: var(--tag-fg);
+  border-radius: 4px;
+  padding: .1rem .45rem;
+  margin-right: .5rem;
+  vertical-align: 1px;
+}
+
+/* The lead/summary as an Obsidian-style callout: a tinted panel with a coloured
+   left bar, so it visually "pops" instead of reading like regular body text. */
+.callout {
+  background: var(--bg-subtle);
+  border-left: 4px solid var(--accent);
+  border-radius: 6px;
+  padding: 1rem 1.2rem;
+  margin: 1rem 0 1.5rem;
+  text-align: left;      /* override main p's justify — reads better ragged in a box */
+}
 
 /* A figure with caption. Border keeps light plots from bleeding into the
-   white page. */
+   white page. Clicking the image opens it full-size (see .lightbox below,
+   wired up by assets/js/site.js). */
 figure.figure { margin: 1.6rem 0; }
 figure.figure img {
   width: 100%;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--plate);   /* white plate — plots have white backgrounds */
+  cursor: zoom-in;
+}
+
+/* Full-size image lightbox. One shared overlay, reused for whichever figure
+   was clicked (see site.js) — hidden by default, shown by adding
+   .lightbox--open. Closes on click-anywhere or Escape. */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 12, 16, .8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .15s ease, visibility .15s;
+  z-index: 100;
+}
+.lightbox--open { opacity: 1; visibility: visible; }
+.lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  border-radius: 8px;
+  cursor: zoom-out;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
 }
 figure.figure figcaption {
   color: var(--muted);
@@ -403,6 +505,10 @@ figure.figure figcaption {
 
 /* ---------------------------------------------------------------------
    10. Publications list (publications.html).
+   The title is a plain link to the article (when published); nothing fancier
+   — an earlier "stretch the whole row into one link" version made it hard to
+   select/copy text (authors, venue) anywhere in the item, so that's rolled
+   back. (An abstract-on-hover card was also tried and rolled back.)
    --------------------------------------------------------------------- */
 .pub-list { list-style: none; padding: 0; margin: 1.5rem 0 0; }
 .pub-item {
@@ -411,12 +517,18 @@ figure.figure figcaption {
 }
 .pub-item:last-child { border-bottom: 0; }
 .pub-title  { font-weight: 600; color: var(--ink); }
-.pub-meta   { font-family: var(--font-mono); color: var(--muted); font-size: 0.88rem; margin: 0.15rem 0; }
+.pub-title-link { color: inherit; }   /* ink, not accent — a link, but not shouting blue */
+.pub-authors,
+.pub-venue  { font-family: var(--font-mono); color: var(--muted); font-size: 0.88rem; margin: 0.15rem 0; }
 .pub-links  { font-family: var(--font-mono); font-size: 0.85rem; }
-.pub-links a { margin-right: 0.9rem; }
+.pub-links a, .pub-links .pub-cite { margin-right: 0.9rem; }
 
-/* "BibTeX" copy button, styled to sit inline with the link list. It's a real
-   <button> (keyboard/AT friendly) but looks like the surrounding links. */
+/* Publication type tag (Journal paper / Conference paper / Talk / Poster…),
+   same pill look as project tags, just inline next to the title. */
+.pub-type { margin-left: .4rem; vertical-align: middle; }
+
+/* "Cite"/"BibTeX" copy buttons, styled to sit inline with the link list.
+   Real <button>s (keyboard/AT friendly) but look like the surrounding links. */
 .pub-cite {
   font: inherit;
   color: var(--accent);
@@ -474,19 +586,26 @@ figure.figure figcaption {
 .site-footer__inner {
   max-width: var(--measure);
   margin: 0 auto;
-  padding: 1.5rem 1.25rem 2.5rem;
-  /* Lay the social links in a wrapping row with even spacing (no more
-     manual "·" separators). */
+  padding: 1.25rem;
+  /* Lay the social links in a centred, wrapping row (both axes — the row
+     is short, so centring it horizontally too avoids it looking stranded
+     at the left edge of a wide, mostly-empty footer). */
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.5rem 1.4rem;
 }
 .social-link {
   display: inline-flex;
   align-items: center;
   color: var(--muted);
+  transition: color .15s ease, transform .15s ease;
 }
-.social-link:hover { color: var(--accent); text-decoration: none; }
+.social-link:hover {
+  color: var(--accent);
+  text-decoration: none;
+  transform: translateY(-2px);   /* a small lift on hover, alongside the colour change */
+}
 
 /* Inline icons: sized to the text (1em), monochrome via currentColor so they
    pick up the link colour (muted grey, accent on hover) — no separate fills. */
@@ -497,3 +616,7 @@ figure.figure figcaption {
   fill: currentColor;
   flex: 0 0 auto;
 }
+
+/* The Kudos mark reads smaller than the other (simpler) glyphs at the same
+   1em box, so it gets a size bump on its own. */
+.social-link--kudos .icon { width: 1.3em; height: 1.3em; }

@@ -2,13 +2,16 @@
 title: "RSS article digest"
 category: tool
 order: 1
+project_date: "2025–Present"
 thumb: /assets/projects/rss-article-digest/thumb.png
 thumb_alt: "RSS article digest pipeline: papers collected, filtered, summarised and organised into a weekly report, built on Zotero, OpenAI and Obsidian"
 summary: "A personal research assistant that fetches paper RSS feeds and emails a weekly, LLM-ranked reading digest."
 tags: [Literature, Automation, LLM]
 lead: "A small personal tool to keep up with the literature without the firehose. It curates recent papers for me and emails a short weekly reading list."
+credits: { label: "Credits to", text: "John Casey for the initial idea and implementation." }
 links:
   - { label: "GitHub repository", url: "https://github.com/CedricLeon/rss-article-digest" }
+project_date: "2024–2026"
 facts:
   - { label: "Type", value: "Automation / personal tool" }
   - { label: "Stack", value: "Python · GitHub Actions · GPT-4o-mini" }

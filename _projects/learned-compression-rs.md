@@ -2,11 +2,13 @@
 title: "Exploring LIC for Remote Sensing data"
 category: research
 order: 1
+project_date: "2023"
 thumb: /assets/projects/learned-compression-rs/architecture.png
 thumb_alt: "Hyper-autoencoder learned image compression architecture"
 summary: "Exploring the pros and cons of learned image compression models for optical and SAR satellite imagery."
 tags: [EO, LIC, Sentinel-1/2, EGU24]
 lead: "Learned Image Compression (LIC) was a revolution in Computer Vision. Could these models also become state of the art for satellite imagery?"
+credits: { label: "Credits to", text: "Tigran Bunarjyan and Mengton Ren, for the further efficiency studies." }
 facts:
   - { label: "Task", value: "Learned lossy image compression" }
   - { label: "Data", value: "EuroSAT-RGB (Sentinel-2) & EuroSAT-SAR (Sentinel-1)" }

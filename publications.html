@@ -7,22 +7,49 @@ description: Publications by Cédric Léonard.
   A few selected articles, see the full list on my <a href="https://scholar.google.com/citations?user=g9YeowkAAAAJ&amp;hl=fr&amp;oi=ao" target="_blank" rel="noopener">Google&nbsp;Scholar</a> profile.
 </p>
 
+{%- comment -%}
+Each entry in _data/publications.yml supports: title, authors, venue, year,
+article_url, project_url, bibtex, citation, badge, type (e.g. "Journal paper",
+"Conference paper", "Talk", "Poster", "Preprint" — shown as a tag). If
+article_url is missing, the entry is treated as unpublished: the venue line
+reads "… · Proceedings to come" instead of a year, and the title is plain text
+(not a link) — there's nowhere to send anyone yet.
+
+`citation` is optional and adds a "Cite" button that copies a ready-to-paste
+reference string, e.g.:
+  citation: { style: "ACM Ref", text: "Leonard, C. et al. 2026. …" }
+`style` is shown in the confirmation toast ("Citation (ACM Ref) copied…") and
+is free text, so a future publication can use "IEEE", "APA", etc.
+{%- endcomment -%}
 <ul class="pub-list">
   {%- for pub in site.data.publications -%}
   <li class="pub-item">
-    <div class="pub-title">{{ pub.title | escape }}{% if pub.badge %} <span class="badge badge--wip">{{ pub.badge | escape }}</span>{% endif %}</div>
-    <p class="pub-meta">
-      {%- if pub.authors %}{{ pub.authors | escape }} · {% endif -%}
-      {{ pub.venue | escape }}
-      {%- if pub.note %} · {{ pub.note | escape }}{% endif -%}
-      {%- if pub.year %} · {{ pub.year }}{% endif -%}
+    <div class="pub-title">
+      {%- if pub.article_url -%}
+      <a class="pub-title-link" href="{{ pub.article_url }}" target="_blank" rel="noopener">{{ pub.title | escape }}</a>
+      {%- else -%}
+      {{ pub.title | escape }}
+      {%- endif %}
+      {% if pub.badge %}<span class="badge badge--wip">{{ pub.badge | escape }}</span>{% endif %}
+      {% if pub.type %}<span class="tag pub-type">{{ pub.type | escape }}</span>{% endif %}
+    </div>
+    {% if pub.authors %}<p class="pub-authors">{{ pub.authors | escape }}</p>{% endif %}
+    <p class="pub-venue">
+      {{- pub.venue | escape -}}
+      {%- if pub.article_url -%}
+        {%- if pub.year %} · {{ pub.year }}{% endif -%}
+      {%- else %} · Proceedings to come{% endif -%}
     </p>
+    {% if pub.citation or pub.bibtex or pub.project_url %}
     <p class="pub-links">
-      {%- if pub.article_url %}<a href="{{ pub.article_url }}" target="_blank" rel="noopener">Article</a>{% endif %}
-      {%- if pub.bibtex %}<button type="button" class="pub-cite" data-cite="cite-{{ forloop.index }}">BibTeX</button>{% endif %}
+      {%- if pub.article_url %}<a href="{{ pub.article_url }}">Article</a>{% endif %}
+      {%- if pub.citation %}<button type="button" class="pub-cite" data-copy="citation-{{ forloop.index }}" data-copy-msg="Citation ({{ pub.citation.style | escape }}) copied to your clipboard">Cite</button>{% endif %}
+      {%- if pub.bibtex %}<button type="button" class="pub-cite" data-copy="bibtex-{{ forloop.index }}" data-copy-msg="BibTeX citation copied to your clipboard">BibTeX</button>{% endif %}
       {%- if pub.project_url %}<a href="{{ pub.project_url }}">Project page</a>{% endif %}
     </p>
-    {%- if pub.bibtex %}<script type="application/x-bibtex" id="cite-{{ forloop.index }}">{{ pub.bibtex }}</script>{% endif %}
+    {% endif %}
+    {%- if pub.citation %}<script type="text/plain" id="citation-{{ forloop.index }}">{{ pub.citation.text }}</script>{% endif %}
+    {%- if pub.bibtex %}<script type="application/x-bibtex" id="bibtex-{{ forloop.index }}">{{ pub.bibtex }}</script>{% endif %}
   </li>
   {%- endfor -%}
 </ul>

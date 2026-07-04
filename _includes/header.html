@@ -8,13 +8,23 @@
     <a class="site-title" href="/">Cédric Léonard</a>
     <nav class="site-nav" aria-label="Primary">
       <a href="/"{% if page.url == "/" %} aria-current="page"{% endif %}>Home</a>
-      <a href="/about.html"{% if page.url == "/about.html" %} aria-current="page"{% endif %}>About</a>
       <a href="/projects.html"{% if page.url == "/projects.html" or page.collection == "projects" %} aria-current="page"{% endif %}>Projects</a>
       <a href="/publications.html"{% if page.url == "/publications.html" %} aria-current="page"{% endif %}>Publications</a>
+      <a href="/about.html"{% if page.url == "/about.html" %} aria-current="page"{% endif %}>About</a>
       <a href="/cv.pdf">CV</a>
       <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark / light">
         <svg class="icon icon--moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.37 5.51A7.35 7.35 0 0 0 9.1 7.5c0 4.08 3.32 7.4 7.4 7.4.68 0 1.35-.09 1.99-.27A7.014 7.014 0 0 1 12 19c-3.86 0-7-3.14-7-7 0-2.93 1.81-5.45 4.37-6.49z"/></svg>
-        <svg class="icon icon--sun" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM2 13h2a1 1 0 0 0 0-2H2a1 1 0 0 0 0 2zm18 0h2a1 1 0 0 0 0-2h-2a1 1 0 0 0 0 2zM11 2v2a1 1 0 0 0 2 0V2a1 1 0 0 0-2 0zm0 18v2a1 1 0 0 0 2 0v-2a1 1 0 0 0-2 0zM5.64 4.22 4.22 5.64a1 1 0 0 0 1.42 1.42l1.42-1.42a1 1 0 0 0-1.42-1.42zm12.72 12.72-1.42 1.42a1 1 0 0 0 1.42 1.42l1.42-1.42a1 1 0 0 0-1.42-1.42zm1.42-11.3-1.42-1.42a1 1 0 0 0-1.42 1.42l1.42 1.42a1 1 0 0 0 1.42-1.42zM7.06 16.94 5.64 18.36a1 1 0 0 0 1.42 1.42l1.42-1.42a1 1 0 0 0-1.42-1.42z"/></svg>
+        <svg class="icon icon--sun" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.2"/>
+          <rect x="11.1" y="1" width="1.8" height="3.2" rx="0.9"/>
+          <rect x="11.1" y="1" width="1.8" height="3.2" rx="0.9" transform="rotate(45 12 12)"/>
+          <rect x="11.1" y="1" width="1.8" height="3.2" rx="0.9" transform="rotate(90 12 12)"/>
+          <rect x="11.1" y="1" width="1.8" height="3.2" rx="0.9" transform="rotate(135 12 12)"/>
+          <rect x="11.1" y="1" width="1.8" height="3.2" rx="0.9" transform="rotate(180 12 12)"/>
+          <rect x="11.1" y="1" width="1.8" height="3.2" rx="0.9" transform="rotate(225 12 12)"/>
+          <rect x="11.1" y="1" width="1.8" height="3.2" rx="0.9" transform="rotate(270 12 12)"/>
+          <rect x="11.1" y="1" width="1.8" height="3.2" rx="0.9" transform="rotate(315 12 12)"/>
+        </svg>
       </button>
     </nav>
   </div>
