@@ -13,3 +13,4 @@ _site_*/          # throwaway preview copies (e.g. forced-dark screenshots)
 .DS_Store
 Thumbs.db
 *.swp
+.vscode/

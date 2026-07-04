@@ -1,6 +1,10 @@
-<!-- Captioned figure. Params: include.src, include.alt, include.caption (optional).
-     Usage: {% raw %}{% include figure.html src="…" alt="…" caption="…" %}{% endraw %} -->
-<figure class="figure">
+<!-- Captioned figure. Params: include.src, include.alt, include.caption (optional),
+     include.width (optional — any CSS width, e.g. "60%" or "400px", caps how big
+     the figure renders; default is the full text column).
+     Usage: {% raw %}{% include figure.html src="…" alt="…" caption="…" width="50%" %}{% endraw %}
+     For a side-by-side pair (e.g. before/after), wrap two of these in a plain
+     <div class="figure-row">…</div> — see style.css for that layout. -->
+<figure class="figure"{% if include.width %} style="max-width: {{ include.width }}"{% endif %}>
   <img src="{{ include.src }}" alt="{{ include.alt | escape }}">
   {% if include.caption %}<figcaption>{{ include.caption | escape }}</figcaption>{% endif %}
 </figure>

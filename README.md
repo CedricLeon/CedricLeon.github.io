@@ -38,3 +38,10 @@ just refresh the browser.
 | `_site/` | Build output (git-ignored — never edit by hand) |
 
 Working tasks / roadmap: `TODO.md` (git-ignored). Project conventions: `CLAUDE.md`.
+
+## License
+
+Written content and original figures are CC BY 4.0 (`LICENSE`); the Jekyll
+site code (layouts, includes, CSS, JS) is MIT (`LICENSE-CODE`). Third-party
+logos and figures reproduced from published papers are excluded from both —
+see the exceptions noted in `LICENSE`.

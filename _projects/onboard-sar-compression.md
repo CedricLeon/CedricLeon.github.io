@@ -2,22 +2,31 @@
 title: "Onboard SAR compression before focusing"
 category: research
 order: 3
-summary: "Applying neural image compression to partially-focused (RCMC) SAR data, pushing compression earlier in the onboard processing chain."
-tags: [SAR, Neural compression, EUSAR26]
-lead: "Synthetic Aperture Radar satellites generate enormous volumes of data. This project asks how early in the onboard processing chain we can apply learned compression — before the image is even fully formed."
+thumb: /assets/projects/onboard-sar-compression/method-diagram.png
+thumb_alt: "Diagram of the Maya4 pipeline: a neural compressor inserted into the SAR focusing chain after range-cell-migration correction"
+summary: "Applying learned image compression to partially-focused SAR data, pushing compression earlier in the onboard processing chain."
+tags: [SAR, LIC, Focusing,EUSAR26]
+lead: "Synthetic Aperture Radar satellites generate enormous volumes of raw data, which is especially tedious to compress. We tried to see if we could progresss to apply LIC methods on partially-focused data."
 facts:
-  - { label: "Task", value: "Neural SAR compression, pre-focusing" }
+  - { label: "Task", value: "LIC,  on partially-focused SAR data" }
   - { label: "Data", value: "Sentinel-1 (Maya4, ESA Φ-lab)" }
-  - { label: "Stack", value: "PyTorch Lightning · Hydra · CompressAI" }
-  - { label: "Shared at", value: "EUSAR 2026" }
+  - { label: "Presented at", value: "EUSAR 2026" }
 footnote: "A fuller, lay-friendly write-up is coming."
 ---
-A SAR sensor records raw complex echoes (Level&nbsp;0) that are turned into a
-focused image (a Single-Look Complex, Level&nbsp;1) through several
-signal-processing steps. Today, compression happens either very early on the raw
-echoes, using classical codecs such as BAQ/FDBAQ, or late on the focused image.
-We explore an intermediate point: applying neural image compression to
-**Range-Cell-Migration-Corrected (RCMC)** data. The decoded RCMC is then
-differentiably azimuth-compressed and compared against the ground-truth focused
-image, so the network is trained toward the final product while acting earlier
-in the pipeline.
+A SAR satellite doesn't record a finished image right away.
+It first records raw radar echoes, then turns them into a focused image, called the Single Look Complex (SLC) image, through several processing steps.
+Today, onboard compression happens right at the start, on the raw echoes using traditional methods.
+However, in the paradigm of onboard intelligence where the processing chain is moving onboard the satellite, we can now use a better, Learned Image Compression (LIC) method.
+In this project, we asked how early in the onboard processing chain we can apply learned compression — before the image is even fully formed.
+
+We started one step away from the fully focused image: on Range-Cell Migration Corrected (RCMC) data.
+A neural network compresses this partially-processed data, saving the computational cost of this last processing step.
+
+To make this work, we finish focusing the reconstructed RCMC data and compare the result to the original image.
+This way, the network learns to compress data for the final image, while acting earlier in the pipeline.
+
+{% include figure.html src="/assets/projects/onboard-sar-compression/method-diagram.png" alt="Diagram of the Maya4 pipeline: a neural compressor inserted into the SAR focusing chain after range-cell-migration correction." caption="On top, the typical focusing pipeline of Sentinel-1, from RAW to SLC data. During training the neural compressor sits between two focusing steps: it works on partially-processed data while getting feedback from the fully-focused image." %}
+
+{% include figure.html src="/assets/projects/onboard-sar-compression/results-grid.png" alt="Grid of reconstructed SAR images at three compression settings, before and after final focusing." caption="Reconstructions at three compression settings, shown on the partly-processed data (left) and the final focused image (right)." %}
+
+This is early-stage, exploratory work, with more experiments ahead before it's ready to share in full.

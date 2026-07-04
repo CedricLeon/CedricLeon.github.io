@@ -1,64 +1,121 @@
-# Site TODO & roadmap — cedricleon.github.io
+# Site TODO — cedricleon.github.io
 
-Working notes. **Git-ignored, not published.** Single source of truth
-(supersedes the old README TODOs and `project_repos/QUESTIONS_for_Cedric.md`).
+Working notes. **Git-ignored, not published.**
 
 Legend: `[x]` done · `[ ]` open · **(you)** needs Cédric · **(agent)** I can do
 
-## Roadmap (agreed phases)
+## Where things stand (2026-07-04)
 
-1. **Finish setup & shared understanding** (with agent) — Jekyll, deploy, how it works. ← we are here
-2. **Add all basic info** (your input, agent edits) — figures, links, facts, credits, CV.
-3. **Rough tone pass** (agent, on your instruction) — de-LLM, cut redundancy → a clean base to review.
-4. **Detailed content review / writing** (you) — you write most pages/posts; drop story notes here.
-5. **Design / theme update** (agent proposes → you pick → agent builds) — warm up the "too white" look; later a light/dark toggle.
-6. **Final check → publish** (enable Pages via Actions).
+Jekyll 4 migration, design pass (dark mode + mono theme), and content pass
+(figures, thumbnails, license, tone pass on all 6 project pages) are done.
+**Cédric has read through the content and is happy with it — publishing now.**
 
-> Watch-outs (from chat): the tone pass (3) is partly wasted if you rewrite pages in (4) — so keep it light / per-page; consider a quick colour pass *early* so you review content on a nicer canvas; and a **test deploy early** would catch Linux/case/build issues before the big content push.
+GitHub Pages is **already enabled with source = GitHub Actions** — no custom
+workflow file needed, GitHub runs its own `actions/jekyll-build-pages` job on
+every push to `main`, and it **builds Jekyll 4 successfully**. The one hiccup:
+the first deploy attempt failed generically, and a manual "re-run" of that
+same run got stuck **queued for over an hour** (confirmed no GitHub-wide
+incident right now — this looks like an isolated stuck run, not a platform
+issue). Fix: **push a fresh commit** rather than keep waiting on the stuck
+run — a new push creates a brand-new run instead of re-queuing the old one,
+which should sidestep whatever it got stuck on.
 
 ---
 
-## Phase 1 — setup (nearly done)
+## Critical path to publish v1
 
-- [x] Migrate to Jekyll 4 (layouts, includes, `projects` collection, publications data)
-- [x] Footer reorder + real Kudos logo (hand-built inline SVG)
-- [x] Comment the setup files (`_config.yml`, `_includes/*`, `_layouts/*`)
-- [x] CLAUDE.md conventions (incl. no-hard-wrap-prose rule)
-- [ ] **Deploy via GitHub Actions** (Jekyll 4) + first commit — set up now that `jekyll serve` runs **(agent)**
+- [x] Read through all current content for accuracy/tone — **(you)**
+- [x] Final safety scan before pushing: build check + scan for stray
+      dev notes (found one `@TODO` in `learned-compression-rs.md` that would
+      have rendered publicly — turned into an HTML comment so it's invisible
+      on the page but still there in the source) — **(agent)**
+- [ ] Commit + push the current batch of changes (LICENSE, new figures/
+      thumbnails, SAR_DDC_FPGA rewrite, tone pass, dark mode, figure-row +
+      clickable-facts features) — **(agent, doing now)**
+- [ ] Confirm the fresh push produces a new, successful "pages build and
+      deployment" run (not the stuck queued one) — **(agent will check)**
+- [ ] Once live, sanity-check cedricleon.github.io in a real browser —
+      **(you)**
+- [ ] Repo visibility: free plan → Pages needs a **public** repo. If you're on
+      GitHub Pro/Team, you can go private and the published site stays public
+      either way — **(you decide, check your plan)**
 
-## Phase 2 — basic info (your assets + agent edits)
+## Working remotely after that (push-only, no local Jekyll)
 
-- [ ] Survey: latest figures as PNG/SVG (current ones are older PDFs) — **(you)** → agent swaps
-- [ ] MAYA: a figure (pipeline / RD curve / reconstruction) — **(you)**
-- [ ] Thumbnails for MAYA, SAR_DDC, and the two tool cards — **(you)**
-- [ ] Credits / collaborators component near the top of project pages — **(agent proposes, iterate)**
-- [ ] Compression project public link — specific paper link vs "see Scholar"? — **(you decide)**
-- [ ] MAYA: exact Maya4 Hugging Face URL — **(you)**
-- [ ] BibTeX + links pattern for every publication (done for the survey; reuse) — **(agent)**
-- [ ] BNN/AdderNet (Tigran) write-up; acknowledge Tigran in the RS_DC repo — **(you, later)**
-- [ ] Release private repos (rss-digest, MAYA) + add their links — **(you, later)**
-- [ ] MAYA full EUSAR 2026 citation once proceedings publish — **(you, later)**
+Given the build already succeeds via GitHub Actions, this plan is sound — a
+few habits make it safer:
 
-## Phase 3 — tone pass (agent, on your instruction)
+- Keep commits small and single-purpose, so a failed build is easy to trace
+  and easy to revert.
+- The GitHub Actions failure email is your safety net — you're already
+  getting it, so nothing extra to set up.
+- The most common thing that breaks a Jekyll build by hand is **YAML
+  front-matter syntax** (missing colon, bad indentation, unquoted colons in a
+  string) — double-check front matter specifically when editing on the web
+  or a plain editor.
+- Filename case matters: the Actions runner is Linux (case-sensitive), so
+  `Figure.PNG` referenced as `figure.png` will 404 there even though it works
+  on Windows. (Bit us once already during the Jekyll migration.)
+- Markdown body text itself is very forgiving — worst case a paragraph
+  renders oddly, it won't break the build. Front matter and `{% include %}`
+  tags are the higher-risk edits.
 
-- [ ] De-LLM the draft: cut redundancy, tighten, plainer voice → a base for your review
+## Content — still open (can happen anytime, incl. remotely)
 
-## Phase 4 — detailed content (you)
+- [ ] Credits / collaborators component near the top of project pages —
+      **(agent proposes, iterate)**
+- [ ] Compression project public link — specific paper link vs "see Scholar"?
+      — **(you decide)**
+- [ ] MAYA: exact Maya4 Hugging Face URL — **(you)**:
+      https://huggingface.co/buckets/ESA-philab/Maya4
+- [ ] BibTeX + links pattern for every publication (done for the survey;
+      reuse) — **(agent)**: other publications not published yet, or check
+      DLR elib
+- [ ] BNN/AdderNet (Tigran) write-up; acknowledge Tigran in the RS_DC repo —
+      **(you, later)**
+- [ ] Release the MAYA repo + add its link (rss-digest is already public) —
+      **(you, later)**
+- [ ] MAYA full EUSAR 2026 citation once proceedings publish — **(you,
+      later)**
+- [ ] Same de-LLM tone pass for `about.md` / `index.html` — only
+      `_projects/*.md` covered so far
+- [ ] Add the date (or range) to all projects
 
-- [ ] Write / expand most pages; add the story you want per project (drop notes here)
+## Design polish (post-v1, not urgent)
 
-## Phase 5 — design / theme (agent proposes → you pick → agent builds)
+- [ ] Make images clickable (lightbox-style), like
+      https://jamstackthemes.dev/demo/theme/jekyll-theme-serial-programmer/
+- [ ] Revisit the heading font — currently monospace, you found it a touch
+      "chunky"; try a lighter weight or a sans alternative
+- [ ] In light mode, projects card should be of a very light blue instead of gray
+- [ ] Make the thumbnails less high (smaller height), and crop the text out of the Hylightning logo.
+- [ ] Replace the ScaleHyperpior architecture sthumbnail with the tikx version so colors match the other thumbnails.
 
-- [ ] Explore directions to warm up the "too white" look (agent mock-ups; you pick)
-- [ ] Light / dark theme toggle — later
-
-## Phase 6 — publish
-
-- [ ] Enable GitHub Pages (source: GitHub Actions) + go live
-- [ ] Update CLAUDE.md / README if anything changed
-
-## 💡 Ideas / later
+## Ideas / later
 
 - [ ] Home page as a reverse-chronological **news feed** (Jekyll posts)
-- [ ] Multiple **CV variants** (short / full / research / machine-readable)
+- [ ] Multiple **CV variants** (short / full / research / machine-readable), after v1 — the current CV is the full one. Users should be able to see the differnet CV with a drop-down menu.
 - [ ] HyLightning: publish the workshop notebook + slides as a blog post
+- [ ] A "Posts" section, next to Publications:
+  - [ ] Blog post about the Zotero + Obsidian + LaTeX workflow as a researcher
+  - [ ] 
+
+## Done (recent)
+
+- [x] Migrate to Jekyll 4 (layouts, includes, `projects` collection,
+      publications data)
+- [x] Footer reorder + real Kudos logo (traced from the real logo SVG)
+- [x] Comment the setup files (`_config.yml`, `_includes/*`, `_layouts/*`)
+- [x] CLAUDE.md conventions (incl. no-hard-wrap-prose rule)
+- [x] Design refresh: layered-grey palette, monospace headings/UI, dark/light
+      toggle, higher-contrast links
+- [x] Survey, MAYA (onboard-sar-compression), learned-compression-rs, and
+      SAR_DDC_FPGA: real figures/thumbnails wired in
+- [x] Tool thumbnails (HyLightning, RSS article digest) wired in; RSS project
+      page updated after the repo went public
+- [x] LICENSE added: CC BY 4.0 for content, MIT for code, with third-party/
+      reproduced-figure carve-outs
+- [x] SAR_DDC_FPGA: full story rewrite (situation → MERLIN → Amao-Oliva DDC →
+      our FPGA work), "To be published" badge, no results shown since the
+      paper isn't out
+- [x] De-LLM tone pass on the other 5 project pages

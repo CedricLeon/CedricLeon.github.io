@@ -4,10 +4,8 @@ description: Research projects and tools by Cédric Léonard — learned compres
 ---
 <h1>Projects</h1>
 <p>
-  My research centres on efficient AI for Earth observation — learned
-  compression, despeckling, and deployment of these models on constrained
-  onboard hardware (FPGAs). Below are the main research threads, followed by
-  a couple of reusable tools.
+  Most of my projects center on my research interests: efficient AI for Earth observation, Learned Image Compression (LIC), SAR, and FPGAs.
+  But I also made some side steps along the way and created a couple of reusable tools.
 </p>
 
 <h2 class="section-label">Research</h2>
@@ -18,8 +16,8 @@ description: Research projects and tools by Cédric Léonard — learned compres
   {%- endfor -%}
 </div>
 
-<h2 class="section-label">Tools &amp; utilities</h2>
-<p class="section-note">Smaller side-projects — reusable tooling rather than research contributions.</p>
+<h2 class="section-label">Tools &amp; Utilities</h2>
+<p class="section-note">Smaller, personal side-projects.</p>
 <div class="card-grid">
   {%- assign tools = site.projects | where: "category", "tool" | sort: "order" | reverse -%}
   {%- for project in tools -%}

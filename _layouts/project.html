@@ -6,7 +6,7 @@ Project detail layout (wraps `default`). Renders the shared chrome from each
 project's front-matter — back-link, title + badge, link-row, lead, then the
 Markdown body ({{ content }}), then the facts list and optional footnote.
 {%- endcomment -%}
-<a class="back-link" href="/projects.html">← All projects</a>
+<a class="back-link" href="/projects.html">← Back to projects</a>
 <h1>{{ page.title | escape }}{% if page.badge %} <span class="badge badge--{{ page.badge_class | default: 'published' }}">{{ page.badge | escape }}</span>{% endif %}</h1>
 
 {% if page.links %}
@@ -23,7 +23,9 @@ Markdown body ({{ content }}), then the facts list and optional footnote.
 
 {% if page.facts %}
 <dl class="facts">
-  {% for fact in page.facts %}<div><dt>{{ fact.label | escape }}</dt><dd>{{ fact.value | escape }}</dd></div>{% endfor %}
+  {%- comment -%} Each fact is { label, value } and optionally { url } to make
+  the value a clickable link (e.g. a DOI or a conference page). {%- endcomment -%}
+  {% for fact in page.facts %}<div><dt>{{ fact.label | escape }}</dt><dd>{% if fact.url %}<a href="{{ fact.url }}" target="_blank" rel="noopener">{{ fact.value | escape }}</a>{% else %}{{ fact.value | escape }}{% endif %}</dd></div>{% endfor %}
 </dl>
 {% endif %}
 

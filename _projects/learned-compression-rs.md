@@ -1,12 +1,12 @@
 ---
-title: "Learned compression of remote-sensing imagery"
+title: "Exploring LIC for Remote Sensing data"
 category: research
 order: 1
-thumb: /assets/projects/learned-compression-rs/rd-curve.png
-thumb_alt: "Rate–distortion curves comparing neural codecs and JPEG"
-summary: "Benchmarking neural image-compression models (Ballé-style hyper-autoencoders) against JPEG on optical and SAR satellite imagery."
-tags: [Learned compression, Sentinel-1/2, EGU 2024]
-lead: "Can neural networks compress satellite imagery better than classical codecs like JPEG? This project benchmarks several learned image-compression models on optical and radar data from the Sentinel missions."
+thumb: /assets/projects/learned-compression-rs/architecture.png
+thumb_alt: "Hyper-autoencoder learned image compression architecture"
+summary: "Exploring the pros and cons of learned image compression models for optical and SAR satellite imagery."
+tags: [EO, LIC, Sentinel-1/2, EGU24]
+lead: "Learned Image Compression (LIC) was a revolution in Computer Vision. Could these models also become state of the art for satellite imagery?"
 facts:
   - { label: "Task", value: "Learned lossy image compression" }
   - { label: "Data", value: "EuroSAT-RGB (Sentinel-2) & EuroSAT-SAR (Sentinel-1)" }
@@ -15,20 +15,16 @@ facts:
   - { label: "Shared at", value: "EGU 2024 (European Geosciences Union)" }
 footnote: "A fuller, lay-friendly write-up is coming."
 ---
-Lossy compression is a trade-off between *rate* (how few bits the image takes)
-and *distortion* (how far the reconstruction strays from the original). Classical
-codecs are hand-designed; *learned* image compression instead trains an
-autoencoder end-to-end, letting the network discover a compact latent
-representation tuned to the data at hand.
+Compressing an image is always a trade-off: fewer bits mean a rougher picture.
+Classical codecs like JPEG use a fixed, hand-designed recipe for this trade-off.
+Learned image compression instead trains a neural network to find its own recipe, tuned to the kind of images it has seen during training.
+<!-- TODO: Add link to LIC tutorial -->
 
-{% include figure.html src="/assets/projects/learned-compression-rs/architecture.png" alt="Hyper-autoencoder compression architecture with encoder, hyper-encoder, quantisation and arithmetic coding." caption="The scale-hyperprior architecture (Ballé et al., 2018): a second autoencoder compresses the latent space and provides side information for entropy coding." %}
+{% include figure.html src="/assets/projects/learned-compression-rs/architecture.png" alt="Hyper-autoencoder compression architecture with encoder, hyper-encoder, quantisation and arithmetic coding." caption="The scale-hyperprior architecture (Ballé et al., 2018)." %}
 
-We evaluated four architectures from Ballé and Minnen's line of work (implemented
-with CompressAI) against JPEG, on Sentinel-2 optical imagery (EuroSAT-RGB) and
-its Sentinel-1 SAR counterpart (EuroSAT-SAR). Results are read as rate–distortion
-curves: further up and to the left is better.
+In this project, I benchmarked four such models against JPEG, on optical images from Sentinel-2 and radar images from Sentinel-1.
 
-{% include figure.html src="/assets/projects/learned-compression-rs/rd-curve.png" alt="Rate–distortion curves: neural codecs achieve higher PSNR than JPEG at low bit-rates." caption="Rate–distortion comparison on EuroSAT-RGB. The neural codecs clearly outperform JPEG in the low-bit-rate regime (presented at EGU 2024)." %}
+{% include figure.html src="/assets/projects/learned-compression-rs/rd-curve.png" alt="Rate–distortion curves: neural codecs achieve higher PSNR than JPEG at low bit-rates." caption="Compression quality vs. compression ratio on EuroSAT-RGB." %}
 
-A subsequent student project built on this to explore more hardware-efficient
-variants of the compression networks (binary and adder-based neural networks).
+The learned models did better than JPEG, especially when compressing images down to very few bits. A follow-up student project used this as a starting
+point to build lighter, more hardware-friendly versions of these networks.

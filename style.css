@@ -366,6 +366,18 @@ figure.figure figcaption {
   text-align: left;
 }
 
+/* Side-by-side figures (e.g. a before/after pair). Wrap two `.figure` blocks
+   in a plain <div class="figure-row"> in the Markdown body — each figure
+   shrinks to share the row instead of stacking full-width, and they wrap
+   back to stacked on narrow screens. */
+.figure-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  margin: 1.6rem 0;
+}
+.figure-row .figure { flex: 1 1 240px; margin: 0; max-width: none; }
+
 /* Row of resource links (paper / repo / venue) below the title. */
 .link-row { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1rem 0 1.5rem; }
 .link-row a {
