@@ -280,14 +280,6 @@ main {
   gap: var(--gap);
   margin-top: 1.5rem;
 }
-.card {
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--card-bg);
-  padding: 1.1rem 1.2rem;
-}
-.card h3 { margin-top: 0; }
-.card p  { color: var(--muted); margin-bottom: 0; }
 
 /* --- Project cards with a thumbnail figure ---------------------------- */
 /* The whole card is a link. `overflow:hidden` clips the thumbnail to the
@@ -559,20 +551,6 @@ figure.figure figcaption {
   z-index: 50;
 }
 .toast--show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-/* A small reusable "to be filled in" badge for placeholders. */
-.todo {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: var(--accent-strong);
-  background: var(--bg-subtle);
-  border: 1px dashed var(--accent);
-  border-radius: 4px;
-  padding: 0.1rem 0.45rem;
-}
 
 /* ---------------------------------------------------------------------
    11. Footer.

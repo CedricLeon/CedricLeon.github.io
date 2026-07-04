@@ -27,7 +27,6 @@ exclude:
   - README.md
   - TODO.md
   - CLAUDE.md
-  - Short_bio.md
   - Gemfile
   - Gemfile.lock
   - project_repos/

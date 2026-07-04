@@ -4,8 +4,10 @@ Personal academic/professional website — bio, projects, publications, and CV.
 Served at <https://cedricleon.github.io>.
 
 Built with **Jekyll** (static site generator): content authored in Markdown/HTML
-with shared layouts and includes, styled by a single hand-written `style.css`.
-No JS framework (just a small `assets/js/site.js` for the BibTeX copy button).
+with shared layouts and includes, styled by a single hand-written `style.css`
+(light/dark theme via CSS custom properties). No JS framework — just a small
+`assets/js/site.js` for the theme toggle, copy-to-clipboard buttons (BibTeX,
+citations), and a figure lightbox.
 
 ## Local preview
 
