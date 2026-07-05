@@ -32,3 +32,4 @@
   venue: "EUSAR 2026"
   type: "Conference paper"
   project_url: "/projects/onboard-sar-compression/"
+  dataset_url: "https://huggingface.co/buckets/ESA-philab/Maya4"

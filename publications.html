@@ -45,6 +45,7 @@ is free text, so a future publication can use "IEEE", "APA", etc.
       {%- if pub.article_url %}<a href="{{ pub.article_url }}">Article</a>{% endif %}
       {%- if pub.citation %}<button type="button" class="pub-cite" data-copy="citation-{{ forloop.index }}" data-copy-msg="Citation ({{ pub.citation.style | escape }}) copied to your clipboard">Cite</button>{% endif %}
       {%- if pub.bibtex %}<button type="button" class="pub-cite" data-copy="bibtex-{{ forloop.index }}" data-copy-msg="BibTeX citation copied to your clipboard">BibTeX</button>{% endif %}
+      {%- if pub.dataset_url %}<a href="{{ pub.dataset_url }}">Dataset</a>{% endif %}
       {%- if pub.project_url %}<a href="{{ pub.project_url }}">Project page</a>{% endif %}
     </p>
     {% endif %}
