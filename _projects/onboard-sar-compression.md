@@ -4,7 +4,7 @@ category: research
 order: 3
 project_date: "2026"
 thumb: /assets/projects/onboard-sar-compression/method-diagram.png
-thumb_alt: "Diagram of the Maya4 pipeline: a neural compressor inserted into the SAR focusing chain after range-cell-migration correction"
+thumb_alt: "Diagram of the Maya4 pipeline."
 summary: "Applying learned image compression to partially-focused SAR data, pushing compression earlier in the onboard processing chain."
 tags: [SAR, LIC, Focusing,EUSAR26]
 lead: "Synthetic Aperture Radar satellites generate enormous volumes of raw data, which is especially tedious to compress. We tried to see if we could progresss to apply LIC methods on partially-focused data."
@@ -15,6 +15,9 @@ facts:
   - { label: "Presented at", value: "EUSAR 2026" }
 footnote: "A fuller, lay-friendly write-up is coming."
 ---
+
+
+
 A SAR satellite doesn't record a finished image right away.
 It first records raw radar echoes, then turns them into a focused image, called the Single Look Complex (SLC) image, through several processing steps.
 Today, onboard compression happens right at the start, on the raw echoes using traditional methods.

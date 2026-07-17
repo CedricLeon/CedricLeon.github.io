@@ -31,3 +31,4 @@ exclude:
   - Gemfile.lock
   - project_repos/
   - vendor/
+  - _posts/

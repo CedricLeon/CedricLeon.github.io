@@ -3,7 +3,7 @@ title: "Exploring LIC for Remote Sensing data"
 category: research
 order: 1
 project_date: "2023"
-thumb: /assets/projects/learned-compression-rs/architecture.png
+thumb: /assets/projects/learned-compression-rs/all_4_hyper-autoencoders_architectures.png
 thumb_alt: "Hyper-autoencoder learned image compression architecture"
 summary: "Exploring the pros and cons of learned image compression models for optical and SAR satellite imagery."
 tags: [EO, LIC, Sentinel-1/2, EGU24]
@@ -18,15 +18,32 @@ facts:
 footnote: "A fuller, lay-friendly write-up is coming."
 ---
 Compressing an image is always a trade-off: fewer bits mean a rougher picture.
-Classical codecs like JPEG use a fixed, hand-designed recipe for this trade-off.
-Learned image compression instead trains a neural network to find its own recipe, tuned to the kind of images it has seen during training.
-<!-- TODO: Add link to LIC tutorial -->
+The exact (lossless) compaction of an image is made using algorithm named entropy coding algorithm.
+These find redundancies, fold patterns, etc.
+To maximize their efficiency at minimizing the entropy of an image a common trick is to first transform it into a nicer, more compressible representation.
+Such a transformation used to be done using specific, hand-crafted functions like the cosine transform (JPEG) or the wavelet transform (JPEG2000).
+However, these approaches are only performant while the transformation produces a nice representation.
 
-{% include figure.html src="/assets/projects/learned-compression-rs/architecture.png" alt="Hyper-autoencoder compression architecture with encoder, hyper-encoder, quantisation and arithmetic coding." caption="The scale-hyperprior architecture (Ballé et al., 2018)." %}
+Learned Image Compression (LIC) is an approach where the transformation is made using neural networks.
+These networks can be trained to replace specialized transforms and unlock great compression performance on data usually complex to efficiently compress.
+Remote Sensing, and in particular Synthetic Aperture Radar (SAR), images are such data as they differ from natural images in many regards (wavelengths, geometry, etc.).
+In this project, I wanted to experiment with LIC models to see if their great performance on natural images can generalize to Remote Sensing.
+More specifically, I tried four different model architectures on optical images from Sentinel-2 and radar images from Sentinel-1.
+You can read more about these models and LIC on **this post**. <!-- TODO: insert link to upcoming LIC tutorial -->
 
-In this project, I benchmarked four such models against JPEG, on optical images from Sentinel-2 and radar images from Sentinel-1.
+
+<!-- Classical codecs like JPEG use a fixed, hand-designed recipe for this trade-off.
+Learned image compression instead trains a neural network to find its own recipe, tuned to the kind of images it has seen during training. -->
+
+The image below shows the four different model architecture I used:  
+
+{% include figure.html src="/assets/projects/learned-compression-rs/all_4_hyper-autoencoders_architectures.png" alt="Hyper-autoencoder compression architecture with encoder, hyper-encoder, quantisation and arithmetic coding." caption="Condensed representation of the 4 methods. The legend of the figure is additive, i.e., `bmshj2018_hyperprior`'s architecture is `bmshj2018_factorized` + the dotted lines, and so on." %}
+
+The last model `mbt2018` is the most sophisticated and uses a hyperprior as well as an autogregressive context model to encode the latents.
+It was interesting to see that, as expected, this model performs the best as it can be seen in the next figure:
 
 {% include figure.html src="/assets/projects/learned-compression-rs/rd-curve.png" alt="Rate–distortion curves: neural codecs achieve higher PSNR than JPEG at low bit-rates." caption="Compression quality vs. compression ratio on EuroSAT-RGB." %}
 
-The learned models did better than JPEG, especially when compressing images down to very few bits. A follow-up student project used this as a starting
+After getting a feeling on how these methods work and what pitfalls I should avoid, I moved to more complex projects, such as 
+A follow-up student project used this as a starting
 point to build lighter, more hardware-friendly versions of these networks.

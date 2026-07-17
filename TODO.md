@@ -1,41 +1,24 @@
 # Site TODO — cedricleon.github.io
 
-Working notes, forward-looking only. **Git-ignored, not published.** For how
-things work and why decisions were made, see `CLAUDE.md` (conventions) and
-`git log` (history) — this file is just what's left to do.
-
+Working notes, forward-looking only. **Not published.** For how things work and why decisions were made, see `CLAUDE.md` (conventions) and `git log` (history) — this file is just what's left to do.
 Legend: `[ ]` open · **(you)** needs Cédric · **(agent)** an agent can do it
 
 ## Current state
 
-**v1 is live at cedricleon.github.io.** All 6 project pages, publications,
-about, and home have real content; design (dark/light mode, mono theme) and
-the license are in place. Cédric now edits mostly remotely — see
-`CLAUDE.md` → Gotchas for the push-only workflow notes and the GitHub Pages
-stuck-deployment fix, if that comes up again.
+**v1 is live at cedricleon.github.io.** All 6 project pages, publications, about, and home have real, but minimal content; design (dark/light mode, mono theme) and the license are in place.
 
 ## Content
 
-- [ ] Compression project (`onboard-sar-compression`) public link — specific
-      paper link vs. "see Scholar"? — **(you decide)**
-- [ ] MAYA: exact Maya4 Hugging Face URL — **(you)**:
-      https://huggingface.co/buckets/ESA-philab/Maya4
-- [ ] Add the SAR_DDC_FPGA paper to `_data/publications.yml` once it's on
-      arXiv — **(you)**: use `type: "Preprint"`, and a `citation`/`bibtex`
-      block once you have one
-- [ ] BibTeX/citation entries for other publications as they're confirmed
-      (pattern established on the survey entry — reuse it) — **(agent)**
-- [ ] BNN/AdderNet (Tigran) write-up; acknowledge Tigran in the RS_DC repo —
-      **(you, later)**
-- [ ] Release the MAYA repo + add its link (rss-digest is already public) —
-      **(you, later)**
+- [ ] Compression project (`onboard-sar-compression`) public link — specific paper link vs. "see Scholar"? — **(you decide)**
+- [ ] MAYA: exact Maya4 Hugging Face URL — **(you)**: https://huggingface.co/buckets/ESA-philab/Maya4
+- [ ] Add the SAR_DDC_FPGA paper to `_data/publications.yml` once it's on arXiv — **(you)**: use `type: "Preprint"`, and a `citation`/`bibtex` block once you have one
+- [ ] BibTeX/citation entries for other publications as they're confirmed (pattern established on the survey entry — reuse it) — **(agent)**
+- [ ] BNN/AdderNet (Tigran) write-up; acknowledge Tigran in the RS_DC repo — **(you, later)**
+- [ ] Release the MAYA repo + add its link (rss-digest is already public) — **(you, later)**
 - [ ] MAYA full EUSAR 2026 citation once proceedings publish — **(you, later)**
-- [ ] De-LLM tone pass for `about.md` / `index.html` — only `_projects/*.md`
-      got this pass so far
-- [ ] About page: expand into subsections (Education / Research interests /
-      Teaching / etc.) — **(you)**: no code needed, just add `## Heading`
-      Markdown headings like any other page; ask if a jump-link table of
-      contents would help once there are several sections
+- [ ] De-LLM tone pass for `about.md` / `index.html` — only `_projects/*.md` got this pass so far
+- [ ] About page: expand into subsections (Education / Research interests / Teaching / etc.) — **(you)**: no code needed, just add `## Heading` Markdown headings like any other page; ask if a jump-link table of contents would help once there are several sections
+- [ ] Remove address from CV
 
 ## Design polish
 
