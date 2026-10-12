@@ -28,8 +28,28 @@
     keywords = {Earth observation, remote sensing, neural networks, approximate computing}
     }
 
-- title: "Early Compression of SAR Data Pre-Focusing"
-  venue: "EUSAR 2026"
+- title: "Towards End-to-End SAR Raw Data Handling: RCMC Data Compression Using Hyperprior Autoencoders"
+  authors: "Cédric Léonard, Roberto Del Prete, Francescopaolo Sica"
+  venue: "16th European Conference on Synthetic Aperture Radar (EUSAR 2026), Baden-Baden"
+  year: 2026
   type: "Conference paper"
+  citation:
+    style: "IEEE"
+    text: "C. Leonard, R. Del Prete and F. Sica, \"Towards end-to-end SAR raw data handling: RCMC data compression using hyperprior autoencoders,\" 16th European Conference on Synthetic Aperture Radar (EUSAR), Baden-Baden, Germany, 2026, pp. 486-491."
+  article_url: "https://ieeexplore.ieee.org/abstract/document/11677517"
   project_url: "/projects/onboard-sar-compression/"
   dataset_url: "https://huggingface.co/buckets/ESA-philab/Maya4"
+  bibtex: |
+    @inproceedings{leonardEndtoendSARRaw2026,
+    author={Leonard, Cedric and Del Prete, Roberto and Sica, Francescopaolo},
+    booktitle={16th European Conference on Synthetic Aperture Radar (EUSAR)}, 
+    title={Towards end-to-end SAR raw data handling: RCMC data compression using hyperprior autoencoders}, 
+    year = {2026},
+    volume={},
+    number={},
+    pages={486-491},
+    keywords={},
+    doi={},
+    address = {Baden-Baden, Germany},
+    url = {https://ieeexplore.ieee.org/abstract/document/11677517}
+    }

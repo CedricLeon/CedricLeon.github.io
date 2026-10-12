@@ -26,19 +26,20 @@ footnote: "A fuller, lay-friendly write-up is coming."
 
 Running ML models directly onboard satellites requires hardware that enables fast inference while staying energy-efficient.
 FPGAs are a popular choice for this.
-But the research is scattered across the three communities, that pursue different goals and use different methods: it's hard to see the full picture.
+But the research is scattered across the three communities, that pursue different goals and use different methods, so it's hard to see the full picture.
 
 So we decided do this review to pull this picture together; we did that in a systematic way, following the [PRISMA&nbsp;2020](https://www.prisma-statement.org/prisma-2020)
 method.
 We surveyed a total of 48 articles reporting 68 distinct experiments and focused on height research questions.
 The three main ones are:
+
 - What Earth-observation problems does the community solve?
 
-{% include figure.html src="/assets/projects/fpga-ml-eo-survey/applications-tasks.png" alt="Bubble chart relating Earth-observation applications to ML tasks and data modalities." caption="Rmote Sensing applications mapped to ML tasks and data modalities (sensor type)." %}
+{% include figure.html src="/assets/projects/fpga-ml-eo-survey/applications-tasks.png" alt="Bubble chart relating Earth-observation applications to ML tasks and data modalities." caption="Remote Sensing applications mapped to ML tasks and data modalities (sensor type)." %}
 
 - Which ML models do they use?
 
-{% include figure.html src="/assets/projects/fpga-ml-eo-survey/models-per-year.svg" alt="Stacked bar chart of ML model families used per publication year." caption="ML Model categories used over time." %}
+{% include figure.html src="/assets/projects/fpga-ml-eo-survey/models-per-year.svg" alt="Stacked bar chart of ML model families used per publication year." caption="Machine learning architectures used over time." %}
 
 - And which FPGA hardware and tricks make these models run efficiently?
 

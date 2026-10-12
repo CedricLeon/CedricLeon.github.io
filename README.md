@@ -27,7 +27,7 @@ just refresh the browser.
 ## Structure
 
 | Path | Purpose |
-|------|---------|
+| ------ | --------- |
 | `_config.yml` | Jekyll configuration |
 | `_layouts/` | Page skeletons (`default`, `project`) |
 | `_includes/` | Reused fragments (head, header/nav, footer, figure, project-card) |
